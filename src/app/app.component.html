@@ -1,21 +1,46 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<igx-navbar [title]="'App title'"></igx-navbar>
 
-<router-outlet></router-outlet>
+<as-split style="height: calc(100vh - 56px);"
+          [direction]="'horizontal'"
+          (dragEnd)="grid.reflow()">
+  <as-split-area style="padding: 16px;" [size]="20">
+    <tree-root #tree
+               [nodes]="nodes"
+               [options]="options"
+               (activate)="handleActivate($event, tree)">
+    </tree-root>
+  </as-split-area>
+  <as-split-area style="padding: 16px;" [size]="80">
+    <igx-grid #grid
+              locale="ja-JP"
+              [data]="data"
+              [primaryKey]="'id'"
+              [showToolbar]="true"
+              [columnHiding]="true"
+              [hiddenColumnsText]="'hidden'"
+              [columnPinning]="true"
+              [pinnedColumnsText]="'pinned'"
+              [exportText]="'Export'"
+              [exportExcel]="true"
+              [exportExcelText]="'Excel'"
+              [exportCsv]="true"
+              [exportCsvText]="'CSV'"
+              [allowFiltering]="true"
+              [rowSelectable]="true"
+              [rowEditable]="true">
+      <igx-column *ngFor="let column of columns"
+                  [field]="column.field"
+                  [header]="column.header"
+                  [dataType]="column.dataType"
+                  [width]="column.width"
+                  [editable]="column.editable"
+                  [filterable]="column.filterable"
+                  [groupable]="column.groupable"
+                  [movable]="column.movable"
+                  [pinned]="column.pinned"
+                  [resizable]="column.resizable"
+                  [sortable]="column.sortable">
+      </igx-column>
+    </igx-grid>
+  </as-split-area>
+</as-split>
