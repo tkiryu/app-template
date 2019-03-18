@@ -6,16 +6,21 @@ import { registerLocaleData } from '@angular/common';
 import localeJa from '@angular/common/locales/ja';
 registerLocaleData(localeJa);
 
+import { ServiceWorkerModule } from '@angular/service-worker';
+
 import { AngularSplitModule } from 'angular-split';
 
 import { IgxNavbarModule } from 'igniteui-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 
+import { environment } from '../environments/environment';
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { ContentComponent } from './shared/components/content/content.component';
+
 
 @NgModule({
   declarations: [
@@ -33,6 +38,8 @@ import { ContentComponent } from './shared/components/content/content.component'
     IgxNavbarModule,
 
     AppRoutingModule,
+
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'ja-JP' }
