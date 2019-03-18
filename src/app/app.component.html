@@ -3,16 +3,18 @@
 <as-split style="height: calc(100vh - 56px);"
           [direction]="'horizontal'"
           (dragEnd)="grid.reflow()">
-  <as-split-area style="padding: 16px;" [size]="20">
+  <as-split-area style="padding: 8px;" [size]="20">
     <tree-root #tree
                [nodes]="nodes"
                [options]="options"
                (activate)="handleActivate($event, tree)">
     </tree-root>
   </as-split-area>
-  <as-split-area style="padding: 16px;" [size]="80">
+  <as-split-area style="padding: 8px;" [size]="80">
+    <!-- TODO: remove workaround for #3950 when it is fixed on v7.2.x -->
     <igx-grid #grid
               locale="ja-JP"
+              [height]="grid.nativeElement.parentElement.clientHeight - 16 + 'px'"
               [data]="data"
               [primaryKey]="'id'"
               [showToolbar]="true"
