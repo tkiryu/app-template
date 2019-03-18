@@ -1,3 +1,97 @@
-<div>
-  form-page works!
-</div>
+<form [formGroup]="form" (ngSubmit)="handleSubmit($event)" >
+  <div class="form-row" igxLayout>
+    <igx-input-group type="box" igxFlex="1 1 50%">
+      <igx-prefix>
+        <igx-icon>person</igx-icon>
+      </igx-prefix>
+      <label igxLabel>姓</label>
+      <input type="text" igxInput formControlName="lastName">
+      <igx-hint>例: 山田</igx-hint>
+      <igx-suffix>
+        <igx-icon *ngIf="isFilled('lastName')" (click)="clear('lastName')">cancel</igx-icon>
+      </igx-suffix>
+    </igx-input-group>
+    <igx-input-group type="box" igxFlex="1 1 50%">
+      <label igxLabel>名</label>
+      <input type="text" igxInput formControlName="firstName">
+      <igx-hint>例: 太郎</igx-hint>
+      <igx-suffix>
+        <igx-icon *ngIf="isFilled('firstName')" (click)="clear('firstName')">cancel</igx-icon>
+      </igx-suffix>
+    </igx-input-group>
+  </div>
+  <div class="form-row" igxLayout>
+    <igx-date-picker locale="ja-JP" formControlName="birthday" igxFlex="0 0 50%">
+      <ng-template igxDatePickerTemplate let-openDialog="openDialog" let-value="value" let-displayData="displayData">
+        <igx-input-group type="box">
+          <igx-prefix (click)="openDialog()">
+            <igx-icon>cake</igx-icon>
+          </igx-prefix>
+          <label igxLabel>誕生日</label>
+          <input #dateInput required igxInput [value]="displayData">
+          <igx-hint>例: 2019/01/01</igx-hint>
+          <igx-suffix>
+            <igx-icon *ngIf="dateInput.value" (click)="dateInput.value = null; clear('birthday')">cancel</igx-icon>
+          </igx-suffix>
+        </igx-input-group>
+      </ng-template>
+    </igx-date-picker>
+  </div>
+  <div class="form-row" igxLayout>
+    <igx-input-group #zip type="box" igxFlex="0 0 50%">
+      <igx-prefix>
+        <igx-icon>location_on</igx-icon>
+      </igx-prefix>
+      <label igxLabel>郵便番号</label>
+      <input #zipcode type="text" igxInput formControlName="zipcode" (input)="search(zipcode.value)">
+      <igx-hint>例: 1234567</igx-hint>
+      <igx-hint *ngIf="error$ | async" class="error">郵便番号が存在しません</igx-hint>
+      <igx-suffix>
+        <igx-icon *ngIf="isFilled('zipcode')" (click)="search(zipcode.value)">search</igx-icon>
+        <igx-icon *ngIf="isFilled('zipcode')" (click)="clear('zipcode')">cancel</igx-icon>
+      </igx-suffix>
+    </igx-input-group>
+  </div>
+  <div class="form-row" igxLayout>
+    <igx-input-group type="box" igxFlex>
+      <igx-prefix>
+        <igx-icon>home</igx-icon>
+      </igx-prefix>
+      <label igxLabel>都道府県+以降の住所</label>
+      <input type="text" igxInput formControlName="address">
+      <igx-hint>例: 東京都渋谷区渋谷◯◯1-2-3△△マンション456号室</igx-hint>
+      <igx-suffix>
+        <igx-icon *ngIf="isFilled('address')" (click)="clear('address')">cancel</igx-icon>
+      </igx-suffix>
+    </igx-input-group>
+  </div>
+  <div class="form-row" igxLayout>
+    <igx-input-group type="box" igxFlex>
+      <igx-prefix>
+        <igx-icon>phone</igx-icon>
+      </igx-prefix>
+      <label igxLabel>電話番号</label>
+      <input type="tel" igxInput formControlName="phone">
+      <igx-hint>例: 090 1234 5678</igx-hint>
+      <igx-suffix>
+        <igx-icon *ngIf="isFilled('phone')" (click)="clear('phone')">cancel</igx-icon>
+      </igx-suffix>
+    </igx-input-group>
+  </div>
+  <div class="form-row" igxLayout>
+    <igx-input-group type="box" igxFlex>
+      <igx-prefix>
+        <igx-icon>email</igx-icon>
+      </igx-prefix>
+      <label igxLabel>Email</label>
+      <input type="email" igxInput formControlName="email">
+      <igx-hint>例: taro-yamada@example.com</igx-hint>
+      <igx-suffix>
+        <igx-icon *ngIf="isFilled('email')" (click)="clear('email')">cancel</igx-icon>
+      </igx-suffix>
+    </igx-input-group>
+  </div>
+  <div class="form-row" igxLayout igxLayoutJustify="flex-end">
+    <button igxButton="raised" [disabled]="form.invalid" igxFlex="0 0 auto">送信</button>
+  </div>
+</form>

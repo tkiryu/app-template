@@ -1,4 +1,15 @@
 :host {
   display: block;
+  max-width: 768px;
   height: 100%;
+  margin: auto;
+  padding: 2rem;
+}
+
+.form-row {
+  margin-top: 1rem;
+}
+
+igx-input-group + igx-input-group {
+  margin-left: 2rem;
 }
