@@ -7,11 +7,8 @@ import localeJa from '@angular/common/locales/ja';
 registerLocaleData(localeJa);
 
 import { AngularSplitModule } from 'angular-split';
-import { TreeModule } from 'angular-tree-component';
 
-import { changei18n, IgxGridModule, IgxNavbarModule } from 'igniteui-angular';
-import { IgxResourceStringsJA } from 'igniteui-angular-i18n';
-changei18n(IgxResourceStringsJA);
+import { IgxNavbarModule } from 'igniteui-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -32,9 +29,7 @@ import { ContentComponent } from './shared/components/content/content.component'
     NoopAnimationsModule,
 
     AngularSplitModule.forRoot(),
-    TreeModule.forRoot(),
 
-    IgxGridModule,
     IgxNavbarModule,
 
     AppRoutingModule,
