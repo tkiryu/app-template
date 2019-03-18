@@ -7,5 +7,5 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent {
-  @Input() copylight = '&copy; Copyright 2019 APP TEMPLATE. All Rights Reserved';
+  @Input() companyName = 'APP TEMPLATE';
 }
