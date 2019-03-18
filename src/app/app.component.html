@@ -1,48 +1,51 @@
-<igx-navbar [title]="'App title'"></igx-navbar>
+<app-header></app-header>
 
-<as-split style="height: calc(100vh - 56px);"
-          [direction]="'horizontal'"
-          (dragEnd)="grid.reflow()">
-  <as-split-area style="padding: 8px;" [size]="20">
-    <tree-root #tree
-               [nodes]="nodes"
-               [options]="options"
-               (activate)="handleActivate($event, tree)">
-    </tree-root>
-  </as-split-area>
-  <as-split-area style="padding: 8px;" [size]="80">
-    <!-- TODO: remove workaround for #3950 when it is fixed on v7.2.x -->
-    <igx-grid #grid
-              locale="ja-JP"
-              [height]="grid.nativeElement.parentElement.clientHeight - 16 + 'px'"
-              [data]="data"
-              [primaryKey]="'id'"
-              [showToolbar]="true"
-              [columnHiding]="true"
-              [hiddenColumnsText]="'列非表示'"
-              [columnPinning]="true"
-              [pinnedColumnsText]="'列固定'"
-              [exportText]="'エクスポート'"
-              [exportExcel]="true"
-              [exportExcelText]="'EXCEL'"
-              [exportCsv]="true"
-              [exportCsvText]="'CSV'"
-              [allowFiltering]="true"
-              [rowSelectable]="true"
-              [rowEditable]="true">
-      <igx-column *ngFor="let column of columns"
-                  [field]="column.field"
-                  [header]="column.header"
-                  [dataType]="column.dataType"
-                  [width]="column.width"
-                  [editable]="column.editable"
-                  [filterable]="column.filterable"
-                  [groupable]="column.groupable"
-                  [movable]="column.movable"
-                  [pinned]="column.pinned"
-                  [resizable]="column.resizable"
-                  [sortable]="column.sortable">
-      </igx-column>
-    </igx-grid>
-  </as-split-area>
-</as-split>
+<app-content>
+  <as-split [direction]="'horizontal'"
+            (dragEnd)="grid.reflow()">
+    <as-split-area style="padding: 8px;" [size]="20">
+      <tree-root #tree
+                 [nodes]="nodes"
+                 [options]="options"
+                 (activate)="handleActivate($event, tree)">
+      </tree-root>
+    </as-split-area>
+    <as-split-area style="padding: 8px;" [size]="80">
+      <!-- TODO: remove workaround for #3950 when it is fixed on v7.2.x -->
+      <igx-grid #grid
+                locale="ja-JP"
+                [height]="grid.nativeElement.parentElement.clientHeight - 16 + 'px'"
+                [data]="data"
+                [primaryKey]="'id'"
+                [showToolbar]="true"
+                [columnHiding]="true"
+                [hiddenColumnsText]="'列非表示'"
+                [columnPinning]="true"
+                [pinnedColumnsText]="'列固定'"
+                [exportText]="'エクスポート'"
+                [exportExcel]="true"
+                [exportExcelText]="'EXCEL'"
+                [exportCsv]="true"
+                [exportCsvText]="'CSV'"
+                [allowFiltering]="true"
+                [rowSelectable]="true"
+                [rowEditable]="true">
+        <igx-column *ngFor="let column of columns"
+                    [field]="column.field"
+                    [header]="column.header"
+                    [dataType]="column.dataType"
+                    [width]="column.width"
+                    [editable]="column.editable"
+                    [filterable]="column.filterable"
+                    [groupable]="column.groupable"
+                    [movable]="column.movable"
+                    [pinned]="column.pinned"
+                    [resizable]="column.resizable"
+                    [sortable]="column.sortable">
+        </igx-column>
+      </igx-grid>
+    </as-split-area>
+  </as-split>
+</app-content>
+
+<app-footer></app-footer>
