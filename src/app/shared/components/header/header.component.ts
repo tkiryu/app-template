@@ -7,5 +7,6 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
+  @Input() icon = 'web';
   @Input() title = 'App Template';
 }
