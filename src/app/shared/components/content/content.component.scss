@@ -1,4 +1,6 @@
 :host {
   display: block;
-  height: calc(100vh - 84px); // 56px: header, 28px: footer
+  height: 100%;
+  padding-top: 56px; // header height
+  padding-bottom: 28px; // footer height
 }
