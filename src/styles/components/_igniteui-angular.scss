@@ -1,0 +1,7 @@
+@import 'settings/index';
+
+@import "~igniteui-angular/lib/core/styles/themes/index";
+
+$app-palette: igx-palette($primary, $secondary);
+@include igx-core();
+@include igx-theme($app-palette);

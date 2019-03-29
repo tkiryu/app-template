@@ -1,3 +1,5 @@
+@import 'settings/index';
+
 :host {
   display: block;
   position: fixed;
@@ -9,5 +11,5 @@
 
 footer {
   text-align: center;
-  background-color: #09f;
+  background-color: $primary;
 }

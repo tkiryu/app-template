@@ -1,0 +1,33 @@
+/**
+ * ITCSS
+ *
+ * 1. Settings
+ * 2. Tools
+ * 3. Generic
+ * 4. Base
+ * 5. Objects
+ * 6. Components
+ * 7. Utilities
+ */
+// Settings layer
+@import 'settings/index';
+
+// Tools layer
+@import 'tools/index';
+
+// Generic layer
+@import 'generic/index';
+
+// Base layer
+@import 'elements/index';
+
+// Objects layer
+@import 'objects/index';
+
+// Components layer
+@import 'components/index';
+
+// Utilities layer
+// https://twitter.com/csswizardry/status/771274768528138240
+// "I’ve officially renamed the Trumps layer to Utilities because of Trump."
+@import 'utilities/index';
