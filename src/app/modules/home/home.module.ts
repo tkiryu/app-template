@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AngularSplitModule } from 'angular-split';
-import { TreeModule } from 'angular-tree-component';
 
 import {
   changei18n,
@@ -25,8 +24,6 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 
     // TODO: remove when it is fixed;https://github.com/bertrandg/angular-split/issues/149
     AngularSplitModule.forChild(),
-
-    TreeModule.forRoot(),
 
     IgxButtonGroupModule,
     IgxGridModule,
