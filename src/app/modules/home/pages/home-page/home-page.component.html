@@ -72,7 +72,7 @@
               locale="ja-JP"
               [height]="grid.nativeElement.parentElement.clientHeight - 16 + 'px'"
               [displayDensity]="'compact'"
-              [data]="data"
+              [data]="data | async"
               [showToolbar]="true"
               [columnPinning]="true"
               [pinnedColumnsText]="'列固定'"
@@ -84,7 +84,7 @@
               [allowFiltering]="true"
               [filterMode]="'excelStyleFilter'"
               [rowSelectable]="true">
-      <igx-column *ngFor="let column of columns"
+      <igx-column *ngFor="let column of columns | async"
                   [field]="column.field"
                   [header]="column.header"
                   [dataType]="column.dataType"
