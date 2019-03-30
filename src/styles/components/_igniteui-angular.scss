@@ -5,13 +5,3 @@
 $app-palette: igx-palette($primary, $secondary);
 @include igx-core();
 @include igx-theme($app-palette);
-
-
-/**
- * Override styles of igniteui-angular
- */
-
- // grid cell
- .igx-grid__td {
-  border-right: 1px solid rgba(0, 0, 0, 0.08);
-}
