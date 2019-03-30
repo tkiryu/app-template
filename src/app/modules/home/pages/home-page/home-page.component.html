@@ -1,22 +1,79 @@
-<as-split [direction]="'horizontal'"
+<as-split [direction]="direction"
           (dragEnd)="grid.reflow()">
-  <as-split-area style="padding: 8px;" [size]="20">
-    <tree-root #tree
-                [nodes]="nodes"
-                [options]="options"
-                (activate)="handleActivate($event, tree)">
-    </tree-root>
+  <as-split-area style="padding: 1rem;" [size]="30">
+    <div class="search-row" igxLayout igxLayoutJustify="space-between">
+      <igx-input-group type="border" displayDensity="compact" igxFlex="0 1 300px">
+        <igx-prefix>項目:</igx-prefix>
+        <input type="text" igxInput>
+        <igx-suffix>
+          <igx-icon>cancel</igx-icon>
+        </igx-suffix>
+      </igx-input-group>
+      <igx-input-group type="border" displayDensity="compact" igxFlex="0 1 300px">
+        <igx-prefix>項目:</igx-prefix>
+        <input type="text" igxInput>
+        <igx-suffix>
+          <igx-icon>cancel</igx-icon>
+        </igx-suffix>
+      </igx-input-group>
+      <igx-input-group type="border" displayDensity="compact" igxFlex="0 1 300px">
+        <igx-prefix>項目:</igx-prefix>
+        <input type="text" igxInput>
+        <igx-suffix>
+          <igx-icon>cancel</igx-icon>
+        </igx-suffix>
+      </igx-input-group>
+      <igx-input-group type="border" displayDensity="compact" igxFlex="0 1 300px">
+        <igx-prefix>項目:</igx-prefix>
+        <input type="text" igxInput>
+        <igx-suffix>
+          <igx-icon>cancel</igx-icon>
+        </igx-suffix>
+      </igx-input-group>
+    </div>
+    <div class="search-row" igxLayout igxLayoutJustify="space-between">
+      <igx-input-group type="border" displayDensity="compact" igxFlex="0 1 300px">
+        <igx-prefix>項目:</igx-prefix>
+        <input type="text" igxInput>
+        <igx-suffix>
+          <igx-icon>cancel</igx-icon>
+        </igx-suffix>
+      </igx-input-group>
+      <igx-input-group type="border" displayDensity="compact" igxFlex="0 1 300px">
+        <igx-prefix>項目:</igx-prefix>
+        <input type="text" igxInput>
+        <igx-suffix>
+          <igx-icon>cancel</igx-icon>
+        </igx-suffix>
+      </igx-input-group>
+      <igx-input-group type="border" displayDensity="compact" igxFlex="0 1 300px">
+        <igx-prefix>項目:</igx-prefix>
+        <input type="text" igxInput>
+        <igx-suffix>
+          <igx-icon>cancel</igx-icon>
+        </igx-suffix>
+      </igx-input-group>
+      <igx-input-group type="border" displayDensity="compact" igxFlex="0 1 300px">
+        <igx-prefix>項目:</igx-prefix>
+        <input type="text" igxInput>
+        <igx-suffix>
+          <igx-icon>cancel</igx-icon>
+        </igx-suffix>
+      </igx-input-group>
+    </div>
+    <div class="search-row" igxLayout igxLayoutJustify="space-between">
+      <button class="search-button" igxButton="raised" (click)="search()">検索</button>
+      <igx-buttongroup [values]="directions" (onSelect)="changeDirection($event)"></igx-buttongroup>
+    </div>
   </as-split-area>
-  <as-split-area style="padding: 8px;" [size]="80">
+  <as-split-area style="padding-top: 16px;" [size]="70">
     <!-- TODO: remove workaround for #3950 when it is fixed on v7.2.x -->
     <igx-grid #grid
               locale="ja-JP"
               [height]="grid.nativeElement.parentElement.clientHeight - 16 + 'px'"
+              [displayDensity]="'compact'"
               [data]="data"
-              [primaryKey]="'id'"
               [showToolbar]="true"
-              [columnHiding]="true"
-              [hiddenColumnsText]="'列非表示'"
               [columnPinning]="true"
               [pinnedColumnsText]="'列固定'"
               [exportText]="'エクスポート'"
@@ -25,8 +82,8 @@
               [exportCsv]="true"
               [exportCsvText]="'CSV'"
               [allowFiltering]="true"
-              [rowSelectable]="true"
-              [rowEditable]="true">
+              [filterMode]="'excelStyleFilter'"
+              [rowSelectable]="true">
       <igx-column *ngFor="let column of columns"
                   [field]="column.field"
                   [header]="column.header"
@@ -38,7 +95,31 @@
                   [movable]="column.movable"
                   [pinned]="column.pinned"
                   [resizable]="column.resizable"
-                  [sortable]="column.sortable">
+                  [sortable]="column.sortable"
+                  [disableHiding]="true">
+        <ng-template igxHeader let-column>
+          <div class="header" igxLayout>
+            <span class="header__text" igxFlex="1 1 auto">{{ column.header }}</span>
+            <igx-icon class="header__icon"
+                      *ngIf="!column.pinned"
+                      igxFlex="0 0 auto"
+                      fontSet="filtering-icons"
+                      name="pin"
+                      (click)="column.pin()"></igx-icon>
+            <igx-icon class="header__icon"
+                      *ngIf="column.pinned"
+                      igxFlex="0 0 auto"
+                      fontSet="filtering-icons"
+                      name="unpin"
+                      (click)="column.unpin()"></igx-icon>
+          </div>
+        </ng-template>
+        <!-- TODO: When we can do in another way, remove these templates.
+          https://github.com/IgniteUI/igniteui-angular/issues/4246#issuecomment-471460353
+         -->
+        <ng-template igxExcelStyleMovingTemplate></ng-template>
+        <ng-template igxExcelStylePinningTemplate></ng-template>
+        <ng-template igxExcelStyleSortingTemplate></ng-template>
       </igx-column>
     </igx-grid>
   </as-split-area>

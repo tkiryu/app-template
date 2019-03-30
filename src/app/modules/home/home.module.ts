@@ -4,7 +4,13 @@ import { CommonModule } from '@angular/common';
 import { AngularSplitModule } from 'angular-split';
 import { TreeModule } from 'angular-tree-component';
 
-import { changei18n, IgxGridModule } from 'igniteui-angular';
+import {
+  changei18n,
+  IgxGridModule,
+  IgxLayoutModule,
+  IgxButtonGroupModule,
+  IgxExcelExporterService
+} from 'igniteui-angular';
 import { IgxResourceStringsJA } from 'igniteui-angular-i18n';
 changei18n(IgxResourceStringsJA);
 
@@ -22,7 +28,10 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 
     TreeModule.forRoot(),
 
-    IgxGridModule
-  ]
+    IgxButtonGroupModule,
+    IgxGridModule,
+    IgxLayoutModule
+  ],
+  providers: [IgxExcelExporterService]
 })
-export class HomeModule { }
+export class HomeModule {}

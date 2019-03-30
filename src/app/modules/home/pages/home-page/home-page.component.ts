@@ -1,5 +1,4 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ITreeOptions } from 'angular-tree-component';
 
 @Component({
   selector: 'app-home-page',
@@ -8,32 +7,15 @@ import { ITreeOptions } from 'angular-tree-component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomePageComponent {
-  nodes = [
+  direction = 'horizontal';
+  directions = [
     {
-      id: 1,
-      name: 'root1',
-      hasChildren: true
+      icon: 'border_horizontal',
+      selected: true
     },
     {
-      id: 4,
-      name: 'root2',
-      hasChildren: true
-    }
-  ];
-  options: ITreeOptions = {
-    getChildren: this.getChildren.bind(this),
-    useVirtualScroll: true,
-    nodeHeight: 23
-  };
-
-  asyncChildren = [
-    {
-      name: 'child1',
-      hasChildren: true
+      icon: 'border_vertical',
     },
-    {
-      name: 'child2'
-    }
   ];
 
   data: any[] = [];
@@ -82,15 +64,7 @@ export class HomePageComponent {
     });
   }
 
-  getChildren(node: any) {
-    const newNodes = this.asyncChildren.map(c => Object.assign({}, c));
-
-    return new Promise((resolve, reject) => {
-      setTimeout(() => resolve(newNodes), 500);
-    });
-  }
-
-  handleActivate(event, tree) {
+  search() {
     this.data = Array.from({ length: 100 }).map((_, i) => {
       const num = i + 1;
       const item = { id: num };
@@ -108,5 +82,9 @@ export class HomePageComponent {
       });
       return item;
     });
+  }
+
+  changeDirection(event) {
+    this.direction = event.index === 0 ? 'vertical' : 'horizontal';
   }
 }
