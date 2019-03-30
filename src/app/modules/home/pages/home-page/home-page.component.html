@@ -84,11 +84,14 @@
               [allowFiltering]="true"
               [filterMode]="'excelStyleFilter'"
               [rowSelectable]="true">
+      <!-- ツールバーコンテンツテンプレート -->
+      <ng-template igxToolbarCustomContent let-grid="grid">
+        {{ grid.data.length }}件
+      </ng-template>
       <igx-column *ngFor="let column of columns | async"
                   [field]="column.field"
                   [header]="column.header"
                   [dataType]="column.dataType"
-                  [width]="column.width"
                   [editable]="column.editable"
                   [filterable]="column.filterable"
                   [groupable]="column.groupable"
