@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { map, startWith, filter } from 'rxjs/operators';
-
 import { BehaviorSubject } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
+
+import { typeOf } from '../utils';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,21 +23,17 @@ export class DataService {
       filter(data => !!data.length),
       map(data => {
         return Object.entries(data[0]).map(([key, value], index) => {
-          const dataType = Object.prototype.toString
-            .call(value)
-            .slice(8, -1)
-            .toLowerCase();
+          const dataType = typeOf(value);
           return {
             field: key,
             header: key.toUpperCase(),
             dataType,
-            width: 100 + (index % 5) * 50,
             editable: true,
             filterable: true,
             groupable: true,
             hasSummary: true,
             movable: true,
-            pinned: key === 'id',
+            pinned: key.toLowerCase() === 'id',
             resizable: true,
             searchable: true,
             sortable: true,
