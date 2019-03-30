@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="handleSubmit($event)" >
   <div class="form-row" igxLayout>
-    <igx-input-group type="box" igxFlex="1 1 50%">
+    <igx-input-group type="border" displayDensity="compact" igxFlex="1 1 50%">
       <igx-prefix>
         <igx-icon>person</igx-icon>
       </igx-prefix>
@@ -11,7 +11,7 @@
         <igx-icon *ngIf="isFilled('lastName')" (click)="clear('lastName')">cancel</igx-icon>
       </igx-suffix>
     </igx-input-group>
-    <igx-input-group type="box" igxFlex="1 1 50%">
+    <igx-input-group type="border" displayDensity="compact" igxFlex="1 1 50%">
       <label igxLabel>名</label>
       <input type="text" igxInput formControlName="firstName">
       <igx-hint>例: 太郎</igx-hint>
@@ -23,7 +23,7 @@
   <div class="form-row" igxLayout>
     <igx-date-picker locale="ja-JP" formControlName="birthday" igxFlex="0 0 50%">
       <ng-template igxDatePickerTemplate let-openDialog="openDialog" let-value="value" let-displayData="displayData">
-        <igx-input-group type="box">
+        <igx-input-group type="border" displayDensity="compact">
           <igx-prefix (click)="openDialog()">
             <igx-icon>cake</igx-icon>
           </igx-prefix>
@@ -38,7 +38,7 @@
     </igx-date-picker>
   </div>
   <div class="form-row" igxLayout>
-    <igx-input-group #zip type="box" igxFlex="0 0 50%">
+    <igx-input-group #zip type="border" displayDensity="compact" igxFlex="0 0 50%">
       <igx-prefix>
         <igx-icon>location_on</igx-icon>
       </igx-prefix>
@@ -53,7 +53,7 @@
     </igx-input-group>
   </div>
   <div class="form-row" igxLayout>
-    <igx-input-group type="box" igxFlex>
+    <igx-input-group type="border" displayDensity="compact" igxFlex>
       <igx-prefix>
         <igx-icon>home</igx-icon>
       </igx-prefix>
@@ -66,7 +66,7 @@
     </igx-input-group>
   </div>
   <div class="form-row" igxLayout>
-    <igx-input-group type="box" igxFlex>
+    <igx-input-group type="border" displayDensity="compact" igxFlex>
       <igx-prefix>
         <igx-icon>phone</igx-icon>
       </igx-prefix>
@@ -79,7 +79,7 @@
     </igx-input-group>
   </div>
   <div class="form-row" igxLayout>
-    <igx-input-group type="box" igxFlex>
+    <igx-input-group type="border" displayDensity="compact" igxFlex>
       <igx-prefix>
         <igx-icon>email</igx-icon>
       </igx-prefix>
