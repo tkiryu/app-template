@@ -108,13 +108,13 @@
                       igxFlex="0 0 auto"
                       fontSet="filtering-icons"
                       name="pin"
-                      (click)="column.pin()"></igx-icon>
+                      (click)="pin($event, column)"></igx-icon>
             <igx-icon class="header__icon"
                       *ngIf="column.pinned"
                       igxFlex="0 0 auto"
                       fontSet="filtering-icons"
                       name="unpin"
-                      (click)="column.unpin()"></igx-icon>
+                      (click)="unpin($event, column)"></igx-icon>
           </div>
         </ng-template>
         <!-- TODO: When we can do in another way, remove these templates.

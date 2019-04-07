@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from 'src/app/shared/services/data.service';
+import { IgxColumnComponent } from 'igniteui-angular';
 
 @Component({
   selector: 'app-home-page',
@@ -30,5 +31,15 @@ export class HomePageComponent {
 
   changeDirection(event) {
     this.direction = event.index === 0 ? 'vertical' : 'horizontal';
+  }
+
+  pin(event: MouseEvent, column: IgxColumnComponent) {
+    event.stopPropagation();
+    column.pin();
+  }
+
+  unpin(event: MouseEvent, column: IgxColumnComponent) {
+    event.stopPropagation();
+    column.unpin();
   }
 }
