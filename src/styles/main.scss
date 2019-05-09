@@ -9,14 +9,14 @@
  * 6. Components
  * 7. Utilities
  */
-// Settings layer
-@import 'settings/index';
+// A.K.A Settings layer
+@import 'variables/index';
 
 // Tools layer
 @import 'tools/index';
 
-// Generic layer
-@import 'generic/index';
+// A.K.A Generic layer
+@import 'base/index';
 
 // Base layer
 @import 'elements/index';
