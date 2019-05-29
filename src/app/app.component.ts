@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { NavComponent } from './shared/components';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
+  @ViewChild('nav') nav: NavComponent;
+
+  handleChangeNavigationMode(): void {
+    this.nav.toggleNavigation();
+  }
 }

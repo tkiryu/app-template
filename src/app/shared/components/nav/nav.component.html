@@ -1,0 +1,34 @@
+<igx-nav-drawer #nav
+                [pin]="true"
+                [pinThreshold]="0"
+                [isOpen]="true"
+                (opened)="handleOpened($event)"
+                (closed)="handleClosed($event)">
+  <ng-template igxDrawer>
+    <span igxDrawerItem [routerLink]="'/dashboard'" routerLinkActive #dashboard="routerLinkActive" [active]="dashboard.isActive">
+      <igx-icon>dashboard</igx-icon>
+      <span>Dashboard</span>
+    </span>
+    <span igxDrawerItem [routerLink]="'/grid'" routerLinkActive #grid="routerLinkActive" [active]="grid.isActive">
+      <igx-icon>grid_on</igx-icon>
+      <span>Grid</span>
+    </span>
+    <span [routerLink]="'/form'" igxDrawerItem routerLinkActive #form="routerLinkActive" [active]="form.isActive">
+      <igx-icon>input</igx-icon>
+      <span>Form</span>
+    </span>
+  </ng-template>
+
+  <ng-template igxDrawerMini>
+    <span igxDrawerItem [routerLink]="'/dashboard'" routerLinkActive #dashboard="routerLinkActive" [active]="dashboard.isActive">
+      <igx-icon>dashboard</igx-icon>
+    </span>
+    <span igxDrawerItem [routerLink]="'/grid'" routerLinkActive #grid="routerLinkActive" [active]="grid.isActive">
+      <igx-icon>grid_on</igx-icon>
+    </span>
+    <span igxDrawerItem [routerLink]="'/form'" igxDrawerItem routerLinkActive #form="routerLinkActive"
+          [active]="form.isActive">
+      <igx-icon>input</igx-icon>
+    </span>
+  </ng-template>
+</igx-nav-drawer>

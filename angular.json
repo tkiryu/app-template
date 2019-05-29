@@ -28,7 +28,9 @@
               "src/manifest.json"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["src/styles"]
+              "includePaths": [
+                "src/styles"
+              ]
             },
             "styles": [
               "src/styles/main.scss"
@@ -142,5 +144,8 @@
       }
     }
   },
-  "defaultProject": "app-template"
+  "defaultProject": "app-template",
+  "cli": {
+    "defaultCollection": "@datorama/akita"
+  }
 }

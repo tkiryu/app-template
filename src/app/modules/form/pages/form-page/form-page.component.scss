@@ -3,13 +3,25 @@
   max-width: 768px;
   height: 100%;
   margin: auto;
-  padding: 2rem;
+  padding: 3rem;
 }
 
-.form-row + .form-row {
-  margin-top: 1rem;
+.form-row {
+  display: flex;
+
+  + .form-row {
+    margin-top: 1rem;
+  }
 }
 
-igx-input-group + igx-input-group {
-  margin-left: 2rem;
+.form-row--right {
+  justify-content: flex-end;
+}
+
+.form-row__control {
+  flex: 0 0 calc(50% - 1rem);
+
+  + .form-row__control {
+    margin-left: 2rem;
+  }
 }

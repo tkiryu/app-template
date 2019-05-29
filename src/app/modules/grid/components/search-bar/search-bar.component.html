@@ -1,0 +1,32 @@
+<igx-input-group [type]="'search'">
+  <igx-prefix>
+    <igx-icon>search</igx-icon>
+  </igx-prefix>
+
+  <input type="text" placeholder="検索" [value]="condition.searchText" igxInput #searchBox
+        (keydown.shift.f3)="searchPrev($event)"
+        (keydown.f3)="searchNext($event)"
+        (keydown.shift.enter)="searchPrev($event)"
+        (keydown.enter)="searchNext($event)">
+
+  <igx-suffix *ngIf="condition.searchText">
+    <div class="results">
+      {{ result.activeCount }} / {{ result.totalCount }}
+    </div>
+    <div>
+      <igx-chips-area>
+        <igx-chip (click)="toggleCaseSensitive()" [color]="condition.caseSensitive ? 'lightgrey' : 'rgba(0, 0, 0, .04)'">
+          <span>大小区別</span>
+        </igx-chip>
+        <igx-chip (click)="toggleExactMatch()" [color]="condition.exactMatch ? 'lightgrey' : 'rgba(0, 0, 0, .04)'">
+          <span>完全一致</span>
+        </igx-chip>
+      </igx-chips-area>
+    </div>
+    <div>
+      <button igxButton="icon" igxRipple (click)="searchPrev($event)"><igx-icon>navigate_before</igx-icon></button>
+      <button igxButton="icon" igxRipple (click)="searchNext($event)"><igx-icon>navigate_next</igx-icon></button>
+      <button igxButton="icon" igxRipple (click)="clearSearch()"><igx-icon>clear</igx-icon></button>
+    </div>
+  </igx-suffix>
+</igx-input-group>

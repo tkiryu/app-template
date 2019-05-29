@@ -1,6 +1,6 @@
 <header>
-  <igx-navbar [actionButtonIcon]="icon" [title]="title">
-    <a igxButton igxButtonColor="#000" [routerLink]="'/'">Home</a>
-    <a igxButton igxButtonColor="#000" [routerLink]="'/form'">Form</a>
+  <igx-navbar [actionButtonIcon]="icon"
+              [title]="title"
+              (onAction)="handleAction()">
   </igx-navbar>
 </header>

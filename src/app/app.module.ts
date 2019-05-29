@@ -10,16 +10,18 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AngularSplitModule } from 'angular-split';
 
-import { IgxNavbarModule } from 'igniteui-angular';
+import { IgxNavbarModule, IgxNavigationDrawerModule, IgxIconModule, IgxLayoutModule, IgxToggleModule } from 'igniteui-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './shared/components/header/header.component';
-import { FooterComponent } from './shared/components/footer/footer.component';
-import { ContentComponent } from './shared/components/content/content.component';
+import { HeaderComponent, FooterComponent, NavComponent } from './shared/components';
+
+// not used in production
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
+import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 
 
 @NgModule({
@@ -27,7 +29,7 @@ import { ContentComponent } from './shared/components/content/content.component'
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ContentComponent
+    NavComponent
   ],
   imports: [
     BrowserModule,
@@ -35,11 +37,19 @@ import { ContentComponent } from './shared/components/content/content.component'
 
     AngularSplitModule.forRoot(),
 
+    IgxIconModule,
     IgxNavbarModule,
+    IgxNavigationDrawerModule,
+    IgxLayoutModule,
+    IgxToggleModule,
 
     AppRoutingModule,
 
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+
+    environment.production ?
+        [] :
+        [ AkitaNgDevtools.forRoot(), AkitaNgRouterStoreModule.forRoot() ],
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'ja-JP' }

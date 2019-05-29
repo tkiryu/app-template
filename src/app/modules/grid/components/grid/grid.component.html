@@ -1,0 +1,47 @@
+<igx-grid #grid
+          [isLoading]="isLoading"
+          [data]="data"
+          [locale]="'ja-JP'"
+          [displayDensity]="'compact'"
+          [allowFiltering]="true"
+          [filterMode]="'excelStyleFilter'"
+          [rowSelectable]="true"
+          [showToolbar]="true"
+          [toolbarTitle]="(grid.data?.length || 0) + '件'"
+          [exportText]="'エクスポート'"
+          [exportExcel]="true"
+          [exportExcelText]="'Excel'"
+          [exportCsv]="true"
+          [exportCsvText]="'CSV'"
+          (onToolbarExporting)="onToolbarExporting($event)"
+          (onDoubleClick)="onDoubleClick($event)"
+
+          appCopyPaste
+          (paste)="onPaste($event)">
+  <ng-template igxToolbarCustomContent let-igxGrid="grid">
+    <button igxButton="flat" igxRipple>
+      <igx-icon>clear</igx-icon>
+      Clear Sort
+    </button>
+  </ng-template>
+
+  <igx-column *ngFor="let column of columns"
+              [field]="column.field"
+              [header]="column.header"
+              [dataType]="column.dataType"
+              [editable]="true"
+              [filterable]="true"
+              [groupable]="true"
+              [movable]="true"
+              [pinned]="false"
+              [resizable]="true"
+              [sortable]="true"
+              [disableHiding]="true">
+    <!-- TODO: When we can do in another way, remove these templates.
+      https://github.com/IgniteUI/igniteui-angular/issues/4246#issuecomment-471460353
+    -->
+    <ng-template igxExcelStyleMovingTemplate></ng-template>
+    <ng-template igxExcelStyleSortingTemplate></ng-template>
+  </igx-column>
+
+</igx-grid>

@@ -11,11 +11,6 @@ $app-palette: igx-palette($primary, $secondary);
  * Override styles of igniteui-angular
  */
 
-// grid toolbar
-.igx-grid-toolbar__custom-content {
-  flex: 1 1 auto;
-}
-
  // grid cell
 .igx-grid__td {
   border-right: 1px solid rgba(0, 0, 0, 0.08);
