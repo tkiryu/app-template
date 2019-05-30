@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavigationService } from 'src/app/states/navigation';
 import { IgxNavigationDrawerComponent } from 'igniteui-angular';
+
+import { NavigationService } from 'src/app/states/navigation';
 import { NavigationMode } from 'src/app/states/navigation/navigation-mode.enum';
 
 @Component({
@@ -18,11 +19,19 @@ export class NavComponent {
     this.nav.toggle();
   }
 
-  handleOpened(event): void {
+  onOpening(): void {
+    this.navigationService.opening();
+  }
+
+  onClosing(): void {
+    this.navigationService.closing();
+  }
+
+  onOpened(): void {
     this.navigationService.changeNavigationMode(NavigationMode.normal);
   }
 
-  handleClosed(event): void {
+  onClosed(): void {
     this.navigationService.changeNavigationMode(NavigationMode.mini);
   }
 }

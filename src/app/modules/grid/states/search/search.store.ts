@@ -1,18 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Store, StoreConfig } from '@datorama/akita';
-import { SearchCondition, SearchResult } from '../models';
+import { SearchCondition, SearchResult } from '../../models';
 
-export interface GridState {
-  data: any[];
-  columns: any[];
+export interface SearchState {
   searchCondition: SearchCondition;
   searchResult: SearchResult;
 }
 
-export function createInitialState(): GridState {
+export function createInitialState(): SearchState {
   return {
-    data: [],
-    columns: [],
     searchCondition: {
       searchText: '',
       caseSensitive: false,
@@ -27,8 +23,8 @@ export function createInitialState(): GridState {
 }
 
 @Injectable({ providedIn: 'root' })
-@StoreConfig({ name: 'grid' })
-export class GridStore extends Store<GridState> {
+@StoreConfig({ name: 'search' })
+export class SearchStore extends Store<SearchState> {
 
   constructor() {
     super(createInitialState());

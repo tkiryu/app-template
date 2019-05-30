@@ -4,14 +4,54 @@
 
 $app-palette: igx-palette($primary, $secondary);
 @include igx-core();
-@include igx-theme($app-palette);
+@include igx-theme($app-palette, $exclude: (igx-nav-drawer), $legacy-support: false);
 
 
 /**
  * Override styles of igniteui-angular
  */
 
- // grid cell
+/**
+ * igx-grid
+ */
+// .igx-grid__thead-wrapper {
+//   width: 100% !important;
+//   .igx-grid__tr {
+//     width: 100% !important;
+//   }
+// }
+
+// .igx-grid-toolbar--compact,
+// .igx-grid__grouparea,
+// .igx-grid__tbody-content {
+//   width: 100% !important;
+// }
+// .igx-grid__scroll-main {
+//   width: calc(100% - 45px) !important;
+// }
+
+// igx-grid cell
 .igx-grid__td {
   border-right: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+// TODO: log as GitHub Issue: disabled igxButton state is overridden.
+// disabled igxButton state in igx-grid toolbar
+.igx-grid-toolbar__custom-content {
+  .igx-button--icon.igx-button--disabled {
+    color: rgba(0, 0, 0, 0.26);
+  }
+}
+
+
+/**
+ * igx-nav-drawer
+ */
+
+// TODO: log as GihHub Issue: $item-border-radius is needed.
+// TODO: log as GitHub Issue: name of "igx-navdrawer" is inconsistent.
+@include igx-navdrawer(igx-navdrawer-theme($border-radius: 0));
+.igx-nav-drawer__item,
+.igx-nav-drawer__item--active {
+  border-radius: 0;
 }

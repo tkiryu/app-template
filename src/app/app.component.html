@@ -1,8 +1,8 @@
-<app-header (changeNavigationMode)="handleChangeNavigationMode()"></app-header>
+<app-header (changeNavigationMode)="onChangeNavigationMode()"></app-header>
 
-<div class="content" igxLayout>
-  <app-nav igxFlex="0 0 auto" #nav></app-nav>
-  <main igxFlex="1 1 auto">
+<div class="content">
+  <app-nav #nav></app-nav>
+  <main [style.width]="mainWidth">
     <router-outlet></router-outlet>
   </main>
 </div>

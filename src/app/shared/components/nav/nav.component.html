@@ -2,8 +2,10 @@
                 [pin]="true"
                 [pinThreshold]="0"
                 [isOpen]="true"
-                (opened)="handleOpened($event)"
-                (closed)="handleClosed($event)">
+                (opening)="onOpening()"
+                (opened)="onOpened()"
+                (closing)="onClosing()"
+                (closed)="onClosed()">
   <ng-template igxDrawer>
     <span igxDrawerItem [routerLink]="'/dashboard'" routerLinkActive #dashboard="routerLinkActive" [active]="dashboard.isActive">
       <igx-icon>dashboard</igx-icon>

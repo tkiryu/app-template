@@ -1,14 +1,17 @@
+@import 'variables/index';
+
 :host {
   display: block;
   width: 100vw;
+  min-width: 768px;
   height: 100vh;
 }
 
 .content {
-  display: block;
+  display: flex;
   width: 100%;
   height: 100%;
-  padding-top: 56px; // header height
-  padding-bottom: 28px; // footer height
+  padding-top: $header-height;
+  padding-bottom: $footer-height;
   overflow: hidden;
 }

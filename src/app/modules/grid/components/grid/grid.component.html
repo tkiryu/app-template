@@ -1,13 +1,14 @@
 <igx-grid #grid
           [isLoading]="isLoading"
           [data]="data"
+          [primaryKey]="primaryKey"
           [locale]="'ja-JP'"
           [displayDensity]="'compact'"
           [allowFiltering]="true"
           [filterMode]="'excelStyleFilter'"
           [rowSelectable]="true"
           [showToolbar]="true"
-          [toolbarTitle]="(grid.data?.length || 0) + '件'"
+          [toolbarTitle]="toolbarTitle"
           [exportText]="'エクスポート'"
           [exportExcel]="true"
           [exportExcelText]="'Excel'"
@@ -15,13 +16,16 @@
           [exportCsvText]="'CSV'"
           (onToolbarExporting)="onToolbarExporting($event)"
           (onDoubleClick)="onDoubleClick($event)"
+          (onCellEdit)="onCellEdit($event)"
 
           appCopyPaste
-          (paste)="onPaste($event)">
+          (pasteFromExcel)="onPaste($event)">
   <ng-template igxToolbarCustomContent let-igxGrid="grid">
-    <button igxButton="flat" igxRipple>
-      <igx-icon>clear</igx-icon>
-      Clear Sort
+    <button igxButton="icon" [disabled]="!hasPrevHistory" (click)="onUndo()">
+      <igx-icon>undo</igx-icon>
+    </button>
+    <button igxButton="icon" [disabled]="!hasNextHistory" (click)="onRedo()">
+        <igx-icon>redo</igx-icon>
     </button>
   </ng-template>
 

@@ -11,7 +11,7 @@ export class CopyPasteDirective implements AfterViewInit, OnDestroy {
 
   @Output() copy = new EventEmitter<string>();
 
-  @Output() paste = new EventEmitter<string[][]>();
+  @Output() pasteFromExcel = new EventEmitter<string[][]>();
 
   private destroy$ = new Subject<boolean>();
 
@@ -96,11 +96,11 @@ export class CopyPasteDirective implements AfterViewInit, OnDestroy {
         // コピーした文字列を、行xセルの二次元配列に変換
         const pasteData: string[][] = data
           // 改行コードで分割し、行データの配列に変換
-          .split((/\r\n?/g))
+          .split(/\r?\n/)
           // タブで分割し、セルデータの配列に変換
           .map(row => row.split('\t'));
 
-        this.paste.emit(pasteData);
+        this.pasteFromExcel.emit(pasteData);
       });
   }
 }

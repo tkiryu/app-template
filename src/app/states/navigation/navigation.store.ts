@@ -4,11 +4,15 @@ import { NavigationMode } from './navigation-mode.enum';
 
 export interface NavigationState {
    mode: NavigationMode;
+   isOpening: boolean;
+   isClosing: boolean;
 }
 
 export function createInitialState(): NavigationState {
   return {
-    mode: NavigationMode.normal
+    mode: NavigationMode.normal,
+    isOpening: false,
+    isClosing: false
   };
 }
 

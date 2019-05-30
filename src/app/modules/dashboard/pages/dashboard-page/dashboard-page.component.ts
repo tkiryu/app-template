@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { IgxBannerComponent } from 'igniteui-angular';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -8,9 +9,12 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class DashboardPageComponent implements OnInit {
 
+  @ViewChild('banner') banner: IgxBannerComponent;
+
   constructor() { }
 
   ngOnInit() {
+    // this.banner.open();
   }
 
 }

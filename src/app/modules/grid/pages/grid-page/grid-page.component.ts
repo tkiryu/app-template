@@ -1,9 +1,14 @@
-import { Component, ChangeDetectionStrategy, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
+
+import { StateHistoryPlugin } from '@datorama/akita';
+
+import { IOutputData } from 'angular-split/lib/interface';
 
 import { NavigationQuery } from 'src/app/states/navigation';
-import { IOutputData } from 'angular-split/lib/interface';
-import { GridQuery, GridService } from '../../state';
+import { SearchQuery, SearchService } from '../../states/search';
+import { GridQuery, GridService } from '../../states/grid';
 import { SearchCondition, SearchResult } from '../../models';
+
 import { GridComponent } from '../../components';
 
 @Component({
@@ -12,62 +17,66 @@ import { GridComponent } from '../../components';
   styleUrls: ['./grid-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GridPageComponent implements OnInit, AfterViewInit {
+export class GridPageComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  searchCondition$ = this.searchQuery.searchCondition$;
+
+  searchResult$ = this.searchQuery.searchResult$;
+
   isLoading$ = this.gridQuery.selectLoading();
 
   data$ = this.gridQuery.data$;
 
   columns$ = this.gridQuery.columns$;
 
-  searchCondition$ = this.gridQuery.searchCondition$;
-
-  searchResult$ = this.gridQuery.searchResult$;
-
-  showDetailArea: boolean;
-
-  detailItem: any;
+  gridDataHistory = new StateHistoryPlugin(this.gridQuery);
 
   @ViewChild('grid') grid: GridComponent;
 
   constructor(
+    private navigationQuery: NavigationQuery,
+    private searchQuery: SearchQuery,
+    private searchService: SearchService,
     private gridQuery: GridQuery,
-    private gridService: GridService,
-    private navigationQuery: NavigationQuery
+    private gridService: GridService
   ) {}
 
   ngOnInit() {
+    this.gridDataHistory.ignoreNext();
     this.gridService.loadData();
   }
 
   ngAfterViewInit() {
-    this.navigationQuery.mode$.subscribe(() => this.grid.reflow());
+    // TODO: remove when calculation will be OK.
+    this.navigationQuery.mode$.subscribe(() => this.grid.calculateGridSizes());
+  }
+
+  ngOnDestroy() {
+    this.gridDataHistory.destroy(true);
+    this.gridService.removeData();
   }
 
   onDragEnd(event: IOutputData): void {
-    this.grid.reflow();
+    this.grid.calculateGridSizes();
   }
 
   onSearch(searchCondition: SearchCondition): void {
-    this.gridService.updateSearchCondition(searchCondition);
+    this.searchService.updateSearchCondition(searchCondition);
   }
 
   onSearchResult(searchResult: SearchResult) {
-    this.gridService.updateSearchResult(searchResult);
+    this.searchService.updateSearchResult(searchResult);
   }
 
-  onSelectItem(item: any): void {
-    this.showDetailArea = true;
-    this.detailItem = item;
+  onUpdateData(dataToUpdate: any[]) {
+    this.gridService.updateData(dataToUpdate);
   }
 
-  onChangeData(dataToUpdate: any[]) {
-    // const originalData = this.gridQuery.getValue().data;
-    // for
-    // this.gridService.updateData(data);
+  onUndo(): void {
+    this.gridDataHistory.undo();
   }
 
-  hideDetail(event): void {
-    this.showDetailArea = false;
-    this.detailItem = null;
+  onRedo(): void {
+    this.gridDataHistory.redo();
   }
 }

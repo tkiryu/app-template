@@ -1,4 +1,14 @@
-<form [formGroup]="form" (ngSubmit)="handleSubmit($event)" >
+<!--
+  TODO: remove when this page is completed.
+-->
+<igx-snackbar [isVisible]="true">
+  <div style="display: flex;">
+    <igx-icon style="margin-right: 1rem;">warning</igx-icon>
+    <span style="font-size: 1.2rem;">Under Construction</span>
+  </div>
+</igx-snackbar>
+
+<form class="form-container" [formGroup]="form" (ngSubmit)="handleSubmit($event)" >
   <div class="form-row">
     <igx-input-group type="border" class="form-row__control">
       <igx-prefix>

@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { NavComponent } from './shared/components';
+import { NavigationQuery } from './states/navigation';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,25 @@ import { NavComponent } from './shared/components';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
+
+  // TODO: remove when I come up with an good idea
+  get mainWidth(): string {
+    const isOpening = this.navigationQuery.getValue().isOpening;
+    const isClosing = this.navigationQuery.getValue().isClosing;
+    if (isOpening && !isClosing) {
+      return 'calc(100vw - 200px)';
+    }
+    if (!isOpening && isClosing) {
+      return 'calc(100vw - 60px)';
+    }
+    return 'calc(100vw - 200px)';
+  }
+
   @ViewChild('nav') nav: NavComponent;
 
-  handleChangeNavigationMode(): void {
+  constructor(private navigationQuery: NavigationQuery) {}
+
+  onChangeNavigationMode(): void {
     this.nav.toggleNavigation();
   }
 }

@@ -9,6 +9,20 @@ export class NavigationService {
 
 constructor(private navigationStore: NavigationStore) { }
 
+  opening(): void {
+    this.navigationStore.update({
+      isOpening: true,
+      isClosing: false
+    });
+  }
+
+  closing(): void {
+    this.navigationStore.update({
+      isOpening: false,
+      isClosing: true
+    });
+  }
+
   changeNavigationMode(mode: NavigationMode): void {
     this.navigationStore.update({ mode });
   }

@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { FormRoutingModule } from './form-routing.module';
 
+import { IgxInputGroupModule, IgxButtonModule, IgxLayoutModule, IgxIconModule, IgxDatePickerModule, IgxSnackbarModule } from 'igniteui-angular';
+
 import { FormPageComponent } from './pages/form-page/form-page.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { IgxInputGroupModule, IgxButtonModule, IgxLayoutModule, IgxIconModule, IgxDatePickerModule } from 'igniteui-angular';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { IgxInputGroupModule, IgxButtonModule, IgxLayoutModule, IgxIconModule, I
     IgxInputGroupModule,
     IgxIconModule,
     IgxLayoutModule,
+    IgxSnackbarModule,
 
     FormRoutingModule
   ]

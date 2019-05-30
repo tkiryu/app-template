@@ -1,5 +1,6 @@
+@import 'variables/index';
+
 :host {
   display: block;
-  max-width: 240px;
-  height: 100%;
+  max-width: $nav-max-width;
 }
