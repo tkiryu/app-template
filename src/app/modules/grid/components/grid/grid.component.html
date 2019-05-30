@@ -18,8 +18,10 @@
           (onDoubleClick)="onDoubleClick($event)"
           (onCellEdit)="onCellEdit($event)"
 
-          appCopyPaste
-          (pasteFromExcel)="onPaste($event)"
+          appCopy
+
+          appPaste
+          (pasteData)="onPasteData($event)"
 
           appUndoRedo
           (undo)="onUndo()"

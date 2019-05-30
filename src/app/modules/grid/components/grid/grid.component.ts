@@ -1,10 +1,9 @@
 import { Component, ViewChild, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 import { IgxGridComponent, IGridToolbarExportEventArgs, IGridCellEventArgs, IGridEditEventArgs } from 'igniteui-angular';
-import { GridSelectionRange } from 'igniteui-angular/lib/core/grid-selection';
 
-import { SearchCondition, SearchResult } from '../../models';
-import { PRIMARY_KEY } from '../../constant';
+import { SearchCondition, SearchResult, ItemToUpdate } from '../../models';
+import { ID_KEY } from '../../constant';
 
 @Component({
   selector: 'app-grid',
@@ -31,7 +30,7 @@ export class GridComponent {
 
   @Output() selectItem = new EventEmitter<any>();
 
-  @Output() updateData = new EventEmitter<any[]>();
+  @Output() updateData = new EventEmitter<ItemToUpdate[]>();
 
   @Output() undo = new EventEmitter<void>();
 
@@ -39,7 +38,7 @@ export class GridComponent {
 
   @ViewChild('grid') grid: IgxGridComponent;
 
-  primaryKey = PRIMARY_KEY;
+  primaryKey = ID_KEY;
 
   get toolbarTitle(): string {
     if (this.isLoading) {
@@ -119,17 +118,17 @@ export class GridComponent {
     this.grid.endEdit(false);
 
     // ストア経由でデータ更新をかける
-    const primaryKey = event.rowID;
     // TODO: Feature request: add columnKey or cell instance to IGridEditEventArgs
     const columnKey = this.grid.visibleColumns[event.cellID.columnID].field;
-    const update = {
-      [columnKey]: event.newValue
-    };
 
-    this.updateData.emit([{
-      primaryKey,
-      update
-    }]);
+    const itemToUpdate: ItemToUpdate = {
+      id: event.rowID,
+      update: {
+        [columnKey]: event.newValue
+      }
+    }
+
+    this.updateData.emit([itemToUpdate]);
   }
 
   onUndo(): void {
@@ -140,48 +139,7 @@ export class GridComponent {
     this.redo.emit();
   }
 
-  onPaste(data: string[][]): void {
-    // 選択範囲を取得
-    const ranges = this.grid.selectionService.ranges as GridSelectionRange[];
-
-    if (ranges.length !== 1) {
-      alert('複数の範囲に対して貼り付けできません');
-      return;
-    }
-
-    const { columnStart, rowStart } = ranges[0];
-    const rowEnd = rowStart + (data.length - 1);
-    const columnEnd = (columnStart as number) + (data[0].length - 1);
-
-    const keys = this.grid.visibleColumns
-      // 貼り付け範囲内の列に絞り込み
-      .filter((_, index) => columnStart <= index && index <= columnEnd)
-      // カラムキーを取得
-      .map(column => column.field);
-
-    const updates = data.map(row => {
-      return row.reduce((obj, cell, index) => {
-        const key = keys[index];
-        return {
-          ...obj,
-          [key]: cell
-        };
-      }, {});
-    });
-
-    const dataToUpdate = this.grid.filteredSortedData
-      // 貼り付け範囲内の行に絞り込み
-      .filter((_, index) => rowStart <= index  && index <= rowEnd)
-      // 貼り付けデータを作成
-      .map((rowData, index) => {
-        const primaryKey = rowData[this.primaryKey];
-        return {
-          primaryKey,
-          update: updates[index]
-        };
-      });
-
-    this.updateData.emit(dataToUpdate);
+  onPasteData(pasteData: ItemToUpdate[]): void {
+    this.updateData.emit(pasteData);
   }
-
 }

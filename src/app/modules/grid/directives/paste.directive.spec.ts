@@ -1,11 +1,11 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async } from '@angular/core/testing';
-import { CopyPasteDirective } from './copy-paste.directive';
+import { PasteDirective } from './paste.directive';
 
 describe('Directive: CopyPaste', () => {
   it('should create an instance', () => {
-    const directive = new CopyPasteDirective();
+    const directive = new PasteDirective();
     expect(directive).toBeTruthy();
   });
 });

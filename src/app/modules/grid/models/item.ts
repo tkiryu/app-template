@@ -1,6 +1,6 @@
 import { ID } from '@datorama/akita';
-import { PRIMARY_KEY } from '../constant';
+import { ID_KEY } from '../constant';
 
 export interface Item {
-  [PRIMARY_KEY]: ID;
+  [ID_KEY]: ID;
 }

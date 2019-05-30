@@ -1,1 +1,1 @@
-export const PRIMARY_KEY = '__id__';
+export const ID_KEY = '__id__';
