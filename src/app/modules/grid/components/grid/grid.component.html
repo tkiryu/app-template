@@ -19,7 +19,11 @@
           (onCellEdit)="onCellEdit($event)"
 
           appCopyPaste
-          (pasteFromExcel)="onPaste($event)">
+          (pasteFromExcel)="onPaste($event)"
+
+          appUndoRedo
+          (undo)="onUndo()"
+          (redo)="onRedo()">
   <ng-template igxToolbarCustomContent let-igxGrid="grid">
     <button igxButton="icon" [disabled]="!hasPrevHistory" (click)="onUndo()">
       <igx-icon>undo</igx-icon>
