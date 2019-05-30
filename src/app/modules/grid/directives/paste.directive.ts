@@ -1,6 +1,6 @@
 import { Directive, AfterViewInit, OnDestroy, Host, Self, Output, EventEmitter, NgZone } from '@angular/core';
 import { Subject, fromEvent } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 import { IgxGridComponent } from 'igniteui-angular';
 import { ItemToUpdate } from '../models';
 
@@ -17,9 +17,17 @@ export class PasteDirective implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.zone.runOutsideAngular(() => {
-      fromEvent<ClipboardEvent>(this.grid.nativeElement, 'paste')
+      fromEvent<ClipboardEvent>(document, 'paste')
         .pipe(takeUntil(this.destroy$))
         .subscribe(event => {
+          const tbody = this.grid.tbody.nativeElement as HTMLElement;
+          if (!tbody.contains(document.activeElement)) {
+            return;
+          }
+
+          // デフォルトの貼り付け処理をキャンセルする
+          event.preventDefault();
+
           // 選択範囲を取得
           const ranges = this.grid.getSelectedRanges();
 
