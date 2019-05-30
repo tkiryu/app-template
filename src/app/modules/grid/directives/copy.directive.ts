@@ -19,6 +19,11 @@ export class CopyDirective implements AfterViewInit, OnDestroy {
       fromEvent<ClipboardEvent>(document, 'copy')
         .pipe(takeUntil(this.destroy$))
         .subscribe(event => {
+          const tbody = this.grid.tbody.nativeElement as HTMLElement;
+          if (!tbody.contains(document.activeElement)) {
+            return;
+          }
+
           // デフォルトのコピー処理をキャンセルする
           event.preventDefault();
 
@@ -50,17 +55,6 @@ export class CopyDirective implements AfterViewInit, OnDestroy {
           event.clipboardData.setData('text/plain', copyData);
 
           this.zone.run(() => this.copyData.emit(copyData));
-        });
-
-      fromEvent<KeyboardEvent>(this.grid.nativeElement, 'keydown')
-        .pipe(
-          filter(event => event.ctrlKey && event.key === 'c' && !event.repeat),
-          takeUntil(this.destroy$)
-        )
-        .subscribe(event => {
-          // デフォルトのコピー処理をキャンセルする
-          event.preventDefault();
-          document.execCommand('copy');
         });
     });
   }
