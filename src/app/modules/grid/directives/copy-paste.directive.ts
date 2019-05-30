@@ -100,7 +100,9 @@ export class CopyPasteDirective implements AfterViewInit, OnDestroy {
           // タブで分割し、セルデータの配列に変換
           .map(row => row.split('\t'));
 
-        this.pasteFromExcel.emit(pasteData);
+        this.zone.run(() => {
+          this.pasteFromExcel.emit(pasteData);
+        });
       });
   }
 }
