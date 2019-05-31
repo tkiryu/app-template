@@ -78,8 +78,3 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
-
-// TODO: remove workaround for https://github.com/IgniteUI/igniteui-angular/issues/4480 when it is fixed.
-if (PointerEvent) {
-  PointerEvent = undefined;
-}
