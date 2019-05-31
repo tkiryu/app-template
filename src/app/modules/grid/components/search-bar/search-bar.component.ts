@@ -34,9 +34,11 @@ export class SearchBarComponent implements AfterViewInit {
             return;
           }
           const searchText = (event.target as HTMLInputElement).value;
-          this.search.emit({
-            ...this.condition,
-            searchText
+          this.zone.run(() => {
+            this.search.emit({
+              ...this.condition,
+              searchText
+            });
           });
         });
     });
