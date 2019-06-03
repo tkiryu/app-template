@@ -1,7 +1,10 @@
 import { Directive, AfterViewInit, OnDestroy, Host, Self, Output, EventEmitter, NgZone } from '@angular/core';
+
 import { Subject, fromEvent } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
+
 import { IgxGridComponent } from 'igniteui-angular';
+
 import { ItemToUpdate } from '../models';
 
 @Directive({
@@ -72,18 +75,29 @@ export class PasteDirective implements AfterViewInit, OnDestroy {
             }, {});
           });
 
-          const primaryKey = this.grid.primaryKey;
-          const pasteData: ItemToUpdate[] = this.grid.filteredSortedData
+          const idKey = this.grid.primaryKey;
+          // TODO: いつか要修正　public API を使用していないので
+          // フィルター・ソート・グルーピングされている状態のデータビューは
+          // grid.verticalScrollContainer.igxForOf
+          // からしか取得できない
+          const pasteData: ItemToUpdate[] = this.grid.verticalScrollContainer.igxForOf
             // 貼り付け範囲内の行に絞り込み
-            .filter((_, index) => rowStart <= index  && index <= rowEnd)
+            .filter((row, index) => rowStart <= index && index <= rowEnd)
             // 貼り付けデータを作成
             .map((rowData, index) => {
-              const id = rowData[primaryKey];
+              // igxForOf にはグループ行も含まれるため idKey に合致するプロパティが存在しない場合はグループ行とみなす
+              const id = rowData[idKey];
+              if (!id) {
+                return;
+              }
+
               return {
                 id,
                 update: updates[index]
               };
-            });
+            })
+            // グループ行の情報はフィルターアウトする
+            .filter(Boolean);
 
           this.zone.run(() => this.pasteData.emit(pasteData));
         });

@@ -1,6 +1,8 @@
 import { Directive, AfterViewInit, OnDestroy, Host, Self, Output, EventEmitter, NgZone } from '@angular/core';
+
 import { Subject, fromEvent } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
+
 import { IgxGridComponent } from 'igniteui-angular';
 
 @Directive({
@@ -43,10 +45,15 @@ export class CopyDirective implements AfterViewInit, OnDestroy {
             // カラムキーを取得
             .map(column => column.field);
 
-            // クリップボードにコピーできるように、選択範囲のデータを文字列に変換
-          const copyData = this.grid.filteredSortedData
+          const idKey = this.grid.primaryKey;
+          // クリップボードにコピーできるように、選択範囲のデータを文字列に変換
+          // TODO: いつか要修正　public API を使用していないので
+          // フィルター・ソート・グルーピングされている状態のデータビューは
+          // grid.verticalScrollContainer.igxForOf
+          // からしか取得できない
+          const copyData = this.grid.verticalScrollContainer.igxForOf
             // 選択範囲内の行に絞り込み
-            .filter((_, index) => rowStart <= index  && index <= rowEnd)
+            .filter((row, index) => rowStart <= index && index <= rowEnd)
             // 行データのうち選択範囲内の列の値のみを取得して、タブで文字列連結
             .map(rowData => columnKeys.map(columnKey => rowData[columnKey]).join('\t'))
             // タブで文字列連結された行データを、さらに改行コードで文字列連結

@@ -1,4 +1,4 @@
-import { Directive, AfterViewInit, OnDestroy, Output, EventEmitter, NgZone, Host, Self } from '@angular/core';
+import { Directive, AfterViewInit, OnDestroy, NgZone, Host, Self } from '@angular/core';
 
 import { Subject, fromEvent } from 'rxjs';
 import { filter, takeUntil, pairwise, map } from 'rxjs/operators';
@@ -58,19 +58,19 @@ export class RangeRowSelectionDirective implements AfterViewInit, OnDestroy {
             [startRowIndex, endRowIndex] = [endRowIndex, startRowIndex];
           }
 
-          const primaryKey = this.grid.primaryKey;
+          const idKey = this.grid.primaryKey;
           // TODO: いつか要修正　public API を使用していないので
           // フィルター・ソート・グルーピングされている状態のデータビューは
           // grid.verticalScrollContainer.igxForOf
           // からしか取得できない
           const rowIDsToSelect = this.grid.verticalScrollContainer.igxForOf
+            // 選択範囲内の行に絞り込み
+            // igxForOf にはグループ行も含まれるため idKey に合致するプロパティが存在しない場合はグループ行とみなしフィルターアウトする
             .filter((row, index) => {
-              return startRowIndex <= index && index <= endRowIndex;
+              return (startRowIndex <= index && index <= endRowIndex) &&
+                !!row[idKey];
             })
-            .map(row => row[primaryKey])
-            // igxForOf にはグループ行も含まれるため primaryKey に合致するプロパティが存在しない
-            // そのため配列から null undefined を除く必要がある
-            .filter(Boolean);
+            .map(row => row[idKey]);
 
           this.zone.run(() => {
             // setTimeout をかまさないと選択状態が反映されない
