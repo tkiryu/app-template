@@ -1,12 +1,15 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { DisplayDensityToken, DisplayDensity } from 'igniteui-angular';
+
 import { AddressService } from '../../services/address.service';
 
 @Component({
   selector: 'app-form-page',
   templateUrl: './form-page.component.html',
   styleUrls: ['./form-page.component.scss'],
+  providers: [{ provide: DisplayDensityToken, useValue: { displayDensity: DisplayDensity.comfortable } }],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormPageComponent implements OnInit {
