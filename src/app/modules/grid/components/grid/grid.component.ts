@@ -55,6 +55,7 @@ export class GridComponent {
 
   calculateGridSizes(): void {
     // TODO: this is a workaround. remove when calculation will be OK.
+    // https://github.com/IgniteUI/igniteui-angular/issues/4952
     (this.grid as any).calculateGridSizes();
   }
 
@@ -119,6 +120,7 @@ export class GridComponent {
 
     // ストア経由でデータ更新をかける
     // TODO: Feature request: add columnKey or cell instance to IGridEditEventArgs
+    // https://github.com/IgniteUI/igniteui-angular/issues/4965
     const columnKey = this.grid.visibleColumns[event.cellID.columnID].field;
 
     const itemToUpdate: ItemToUpdate = {

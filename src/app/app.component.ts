@@ -10,7 +10,8 @@ import { NavigationQuery } from './states/navigation';
 })
 export class AppComponent {
 
-  // TODO: remove when I come up with an good idea
+  // TODO: remove calculation of grid width will be OK.
+  // https://github.com/IgniteUI/igniteui-angular/issues/4952
   get mainWidth(): string {
     const isOpening = this.navigationQuery.getValue().isOpening;
     const isClosing = this.navigationQuery.getValue().isClosing;

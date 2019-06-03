@@ -48,6 +48,7 @@ export class GridPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     // TODO: remove when calculation will be OK.
+    // https://github.com/IgniteUI/igniteui-angular/issues/4952
     this.navigationQuery.mode$.subscribe(() => this.grid.calculateGridSizes());
   }
 
