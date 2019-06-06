@@ -21,6 +21,7 @@ export class CopyDirective implements AfterViewInit, OnDestroy {
       fromEvent<ClipboardEvent>(document, 'copy')
         .pipe(takeUntil(this.destroy$))
         .subscribe(event => {
+          // TODO: 修正されたら document レベルでハンドルしなくてよくなるはず https://github.com/IgniteUI/igniteui-angular/issues/4878
           const tbody = this.grid.tbody.nativeElement as HTMLElement;
           if (!tbody.contains(document.activeElement)) {
             return;
