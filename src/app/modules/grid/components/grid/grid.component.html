@@ -31,16 +31,16 @@
   <ng-template igxToolbarCustomContent let-igxGrid="grid">
     <input #inputFile
            type="file"
-           accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+           [accept]="acceptExtension"
            style="display: none;"
-           (change)="loadFromExcel($event)">
+           (change)="onImportFromFile($event)">
     <button igxButton [igxToggleAction]="importDropdown" [igxDropDownItemNavigation]="importDropdown">
       インポート
       <igx-icon>arrow_drop_down</igx-icon>
     </button>
-    <igx-drop-down #importDropdown (onSelection)="inputFile.click()">
-      <igx-drop-down-item>Excel</igx-drop-down-item>
-      <!-- <igx-drop-down-item>CSV</igx-drop-down-item> -->
+    <igx-drop-down #importDropdown (onSelection)="onSelectFileType($event, inputFile)">
+      <igx-drop-down-item [value]="'.xlsx'">Excel</igx-drop-down-item>
+      <igx-drop-down-item [value]="'.csv'">CSV</igx-drop-down-item>
     </igx-drop-down>
 
     <button igxButton="icon" [disabled]="!hasPrevHistory" (click)="onUndo()">
