@@ -12,40 +12,6 @@ $app-palette: igx-palette($primary, $secondary);
  */
 
 /**
- * igx-grid
- */
-// .igx-grid__thead-wrapper {
-//   width: 100% !important;
-//   .igx-grid__tr {
-//     width: 100% !important;
-//   }
-// }
-
-// .igx-grid-toolbar--compact,
-// .igx-grid__grouparea,
-// .igx-grid__tbody-content {
-//   width: 100% !important;
-// }
-// .igx-grid__scroll-main {
-//   width: calc(100% - 45px) !important;
-// }
-
-// igx-grid cell
-.igx-grid__td {
-  border-right: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-// TODO: log as GitHub Issue: disabled igxButton state is overridden.
-// disabled igxButton state in igx-grid toolbar
-// https://github.com/IgniteUI/igniteui-angular/issues/4958
-.igx-grid-toolbar__custom-content {
-  .igx-button--icon.igx-button--disabled {
-    color: rgba(0, 0, 0, 0.26);
-  }
-}
-
-
-/**
  * igx-nav-drawer
  */
 

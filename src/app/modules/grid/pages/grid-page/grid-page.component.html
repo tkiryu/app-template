@@ -14,6 +14,7 @@
               [hasNextHistory]="gridDataHistory.hasFuture"
               [searchCondition]="searchCondition$ | async"
               (searchResult)="onSearchResult($event)"
+              (loadData)="onLoadData($event)"
               (updateData)="onUpdateData($event)"
               (undo)="onUndo()"
               (redo)="onRedo()">

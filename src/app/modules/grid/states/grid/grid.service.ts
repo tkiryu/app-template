@@ -18,29 +18,31 @@ export class GridService {
 
   constructor(private gridStore: GridStore, private http: HttpClient) {}
 
-  loadData() {
-    this.http.get<any[]>(this.url).pipe(
+  loadData(): void {
+    this.http.get<any[]>(this.url)
+      .pipe(
         catchError(err => {
           this.gridStore.setError(err);
           return throwError(err);
         })
       )
-      .subscribe(data => {
-        const columns = this.getColumns(data[0]);
+      .subscribe(data => this.setData(data));
+  }
 
-        const dataWithId = data.map(rowData => {
-          return {
-            [ID_KEY]: uuid.v4(),
-            ...rowData
-          };
-        });
+  setData(data: any[]): void {
+    const columns = this.getColumns(data[0]);
 
-        applyTransaction(() => {
-          this.gridStore.add(dataWithId);
-          this.gridStore.update({ ui: { columns } });
-          // this.gridStore.setLoading(false);
-        });
-      });
+    const dataWithId = data.map(rowData => {
+      return {
+        [ID_KEY]: uuid.v4(),
+        ...rowData
+      };
+    });
+
+    applyTransaction(() => {
+      this.gridStore.set(dataWithId);
+      this.gridStore.update({ ui: { columns } });
+    });
   }
 
   updateData(dataToUpdate: ItemToUpdate[]): void {
@@ -60,7 +62,7 @@ export class GridService {
       const dataType = typeOf(value);
       return {
         field: key,
-        header: key.toUpperCase(),
+        header: key,
         dataType,
       };
     });

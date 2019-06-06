@@ -29,11 +29,25 @@
 
           appRangeRowSelection>
   <ng-template igxToolbarCustomContent let-igxGrid="grid">
+    <input #inputFile
+           type="file"
+           accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+           style="display: none;"
+           (change)="loadFromExcel($event)">
+    <button igxButton [igxToggleAction]="importDropdown" [igxDropDownItemNavigation]="importDropdown">
+      インポート
+      <igx-icon>arrow_drop_down</igx-icon>
+    </button>
+    <igx-drop-down #importDropdown (onSelection)="inputFile.click()">
+      <igx-drop-down-item>Excel</igx-drop-down-item>
+      <!-- <igx-drop-down-item>CSV</igx-drop-down-item> -->
+    </igx-drop-down>
+
     <button igxButton="icon" [disabled]="!hasPrevHistory" (click)="onUndo()">
       <igx-icon>undo</igx-icon>
     </button>
     <button igxButton="icon" [disabled]="!hasNextHistory" (click)="onRedo()">
-        <igx-icon>redo</igx-icon>
+      <igx-icon>redo</igx-icon>
     </button>
   </ng-template>
 
@@ -57,3 +71,17 @@
   </igx-column>
 
 </igx-grid>
+
+<igx-snackbar class="snackbar" [isVisible]="isLoadingFile" [autoHide]="false">
+  {{ loadingFileName }}
+  <span style="margin-left: 1rem;">
+      読み込み中
+      <svg id="dots" height="20px">
+        <g fill="#FFFFFF">
+          <circle id="dot1" cx="5" cy="18" r="2"></circle>
+          <circle id="dot2" cx="15" cy="18" r="2"></circle>
+          <circle id="dot3" cx="25" cy="18" r="2"></circle>
+        </g>
+      </svg>
+  </span>
+</igx-snackbar>

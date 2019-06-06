@@ -6,10 +6,10 @@ import { AngularSplitModule } from 'angular-split';
 import {
   changei18n,
   IgxGridModule,
-  IgxListModule,
-  IgxLayoutModule,
   IgxExcelExporterService,
   IgxCsvExporterService,
+  IgxProgressBarModule,
+  IgxSnackbarModule
 } from 'igniteui-angular';
 import { IgxResourceStringsJA } from 'igniteui-angular-i18n';
 changei18n(IgxResourceStringsJA);
@@ -38,8 +38,8 @@ import { CopyDirective, PasteDirective, UndoRedoDirective, RangeRowSelectionDire
     AngularSplitModule.forChild(),
 
     IgxGridModule,
-    IgxListModule,
-    IgxLayoutModule
+    IgxProgressBarModule,
+    IgxSnackbarModule
   ],
   providers: [
     IgxExcelExporterService,

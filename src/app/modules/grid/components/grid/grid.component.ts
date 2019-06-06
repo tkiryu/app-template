@@ -4,6 +4,7 @@ import { IgxGridComponent, IGridToolbarExportEventArgs, IGridCellEventArgs, IGri
 
 import { SearchCondition, SearchResult, ItemToUpdate } from '../../models';
 import { ID_KEY } from '../../constant';
+import { excelToJson } from 'src/app/shared/utils';
 
 @Component({
   selector: 'app-grid',
@@ -30,6 +31,8 @@ export class GridComponent {
 
   @Output() selectItem = new EventEmitter<any>();
 
+  @Output() loadData = new EventEmitter<any[]>();
+
   @Output() updateData = new EventEmitter<ItemToUpdate[]>();
 
   @Output() undo = new EventEmitter<void>();
@@ -50,6 +53,9 @@ export class GridComponent {
     }
     return `${count}件`;
   }
+
+  isLoadingFile = false;
+  loadingFileName = '';
 
   constructor() { }
 
@@ -128,9 +134,28 @@ export class GridComponent {
       update: {
         [columnKey]: event.newValue
       }
-    }
+    };
 
     this.updateData.emit([itemToUpdate]);
+  }
+
+  async loadFromExcel(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files.length !== 1) {
+      alert('複数ファイルは読み込めません');
+      return;
+    }
+
+    const file = input.files[0];
+
+    this.isLoadingFile = true;
+    this.loadingFileName = file.name;
+
+    const data = await excelToJson(file);
+    this.loadData.emit(data);
+
+    this.isLoadingFile = false;
+    this.loadingFileName = '';
   }
 
   onUndo(): void {
