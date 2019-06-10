@@ -20,10 +20,6 @@ export class GridComponent {
 
   @Input() columns: any[];
 
-  @Input() hasNextHistory: boolean;
-
-  @Input() hasPrevHistory: boolean;
-
   @Input() set searchCondition(value: SearchCondition) {
     this.search(value);
   }
@@ -35,10 +31,6 @@ export class GridComponent {
   @Output() loadData = new EventEmitter<any[]>();
 
   @Output() changeData = new EventEmitter<ItemToChange[]>();
-
-  @Output() undo = new EventEmitter<void>();
-
-  @Output() redo = new EventEmitter<void>();
 
   @ViewChild('grid') grid: IgxGridComponent;
 

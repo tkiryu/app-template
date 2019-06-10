@@ -1,7 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 
-import { StateHistoryPlugin } from '@datorama/akita';
-
 import { IOutputData } from 'angular-split/lib/interface';
 
 import { NavigationQuery } from 'src/app/states/navigation';
@@ -29,8 +27,6 @@ export class GridPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   columns$ = this.gridQuery.columns$;
 
-  gridDataHistory = new StateHistoryPlugin(this.gridQuery);
-
   @ViewChild('grid') grid: GridComponent;
 
   constructor(
@@ -42,7 +38,6 @@ export class GridPageComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.gridDataHistory.ignoreNext();
     this.gridService.loadData();
   }
 
@@ -53,7 +48,6 @@ export class GridPageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.gridDataHistory.destroy(true);
     this.gridService.removeData();
   }
 
@@ -75,13 +69,5 @@ export class GridPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onChangeData(dataToChange: ItemToChange[]) {
     this.gridService.changeData(dataToChange);
-  }
-
-  onUndo(): void {
-    this.gridDataHistory.undo();
-  }
-
-  onRedo(): void {
-    this.gridDataHistory.redo();
   }
 }

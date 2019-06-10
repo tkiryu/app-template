@@ -10,14 +10,10 @@
               [isLoading]="isLoading$ | async"
               [data]="data$ | async"
               [columns]="columns$ | async"
-              [hasPrevHistory]="gridDataHistory.hasPast"
-              [hasNextHistory]="gridDataHistory.hasFuture"
               [searchCondition]="searchCondition$ | async"
               (searchResult)="onSearchResult($event)"
               (loadData)="onLoadData($event)"
-              (changeData)="onChangeData($event)"
-              (undo)="onUndo()"
-              (redo)="onRedo()">
+              (changeData)="onChangeData($event)">
     </app-grid>
 </div>
 <!-- <as-split [direction]="'horizontal'"
