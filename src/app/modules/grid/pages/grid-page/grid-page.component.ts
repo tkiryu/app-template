@@ -51,9 +51,10 @@ export class GridPageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.gridService.removeData();
   }
 
-  onDragEnd(event: IOutputData): void {
-    this.grid.calculateGridSizes();
-  }
+  // TODO: maybe remove someday
+  // onDragEnd(event: IOutputData): void {
+  //   this.grid.calculateGridSizes();
+  // }
 
   onSearch(searchCondition: SearchCondition): void {
     this.searchService.updateSearchCondition(searchCondition);
