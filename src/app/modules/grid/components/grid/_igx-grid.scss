@@ -9,6 +9,14 @@
     border-right: 1px solid rgba(0, 0, 0, 0.08);
   }
 
+  .igx-grid__tr--deleted {
+    background-color:  rgba(0, 0, 0, 0.12);
+  }
+
+  .igx-grid__td--edited {
+    background-color: rgba(0, 255, 0, 0.08)
+  }
+
   .igx-grid__td-text {
     // 改行コードをそのまま表示
     white-space: pre;

@@ -1,8 +1,8 @@
 import { Component, ViewChild, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
-import { IgxGridComponent, IGridToolbarExportEventArgs, IGridCellEventArgs, IGridEditEventArgs, ISelectionEventArgs } from 'igniteui-angular';
+import { IgxGridComponent, IGridToolbarExportEventArgs, IGridCellEventArgs, ISelectionEventArgs, IgxGridTransaction, IgxTransactionService, TransactionType } from 'igniteui-angular';
 
-import { SearchCondition, SearchResult, ItemToUpdate } from '../../models';
+import { SearchCondition, SearchResult, ItemToChange, ChangeType } from '../../models';
 import { ID_KEY } from '../../constant';
 import { csvToJson, excelToJson } from 'src/app/shared/utils';
 
@@ -10,6 +10,7 @@ import { csvToJson, excelToJson } from 'src/app/shared/utils';
   selector: 'app-grid',
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss'],
+  providers: [{ provide: IgxGridTransaction, useClass: IgxTransactionService }],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GridComponent {
@@ -33,7 +34,7 @@ export class GridComponent {
 
   @Output() loadData = new EventEmitter<any[]>();
 
-  @Output() updateData = new EventEmitter<ItemToUpdate[]>();
+  @Output() changeData = new EventEmitter<ItemToChange[]>();
 
   @Output() undo = new EventEmitter<void>();
 
@@ -52,6 +53,22 @@ export class GridComponent {
       count = this.grid.data.length;
     }
     return `${count}件`;
+  }
+
+  get canDelete(): boolean {
+    return this.grid.selectedRows().length > 0;
+  }
+
+  get canUndo(): boolean {
+    return this.grid.transactions.canUndo;
+  }
+
+  get canRedo(): boolean {
+    return this.grid.transactions.canRedo;
+  }
+
+  get canCommit(): boolean {
+    return this.grid.transactions.getAggregatedChanges(false).length > 0;
   }
 
   acceptExtension = '';
@@ -121,24 +138,10 @@ export class GridComponent {
     this.selectItem.emit(event.cell.rowData);
   }
 
-  onCellEdit(event: IGridEditEventArgs): void {
-    // igx-grid 内のデータ更新はキャンセルし
-    event.cancel = true;
-    this.grid.endEdit(false);
-
-    // ストア経由でデータ更新をかける
-    // TODO: Feature request: add columnKey or cell instance to IGridEditEventArgs
-    // https://github.com/IgniteUI/igniteui-angular/issues/4965
-    const columnKey = this.grid.visibleColumns[event.cellID.columnID].field;
-
-    const itemToUpdate: ItemToUpdate = {
-      id: event.rowID,
-      update: {
-        [columnKey]: event.newValue
-      }
-    };
-
-    this.updateData.emit([itemToUpdate]);
+  onPasteData(pasteData: ItemToChange[]): void {
+    pasteData.forEach(pasteItem => {
+      this.grid.updateRow(pasteItem.value, pasteItem.id);
+    });
   }
 
   onSelectFileType(event: ISelectionEventArgs, input: HTMLInputElement): void {
@@ -180,15 +183,44 @@ export class GridComponent {
     this.loadingFileName = '';
   }
 
+  onDelete(): void {
+    const rowIDs = this.grid.selectedRows();
+    rowIDs.forEach(rowID => this.grid.deleteRow(rowID));
+  }
+
   onUndo(): void {
-    this.undo.emit();
+    this.grid.transactions.undo();
   }
 
   onRedo(): void {
-    this.redo.emit();
+    this.grid.transactions.redo();
   }
 
-  onPasteData(pasteData: ItemToUpdate[]): void {
-    this.updateData.emit(pasteData);
+  onCommit(): void {
+    const changes = this.grid.transactions.getAggregatedChanges(false);
+    const dataToChange: ItemToChange[] = changes.map(change => {
+      let type;
+      switch (change.type) {
+        case TransactionType.ADD: {
+          type = ChangeType.Add;
+          break;
+        }
+        case TransactionType.UPDATE: {
+          type = ChangeType.Update;
+          break;
+        }
+        case TransactionType.DELETE: {
+          type = ChangeType.Remove;
+          break;
+        }
+      }
+      return {
+        id: change.id,
+        value: change.newValue,
+        type
+      };
+    });
+    this.grid.transactions.clear();
+    this.changeData.emit(dataToChange);
   }
 }

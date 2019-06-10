@@ -16,7 +16,6 @@
           [exportCsvText]="'CSV'"
           (onToolbarExporting)="onToolbarExporting($event)"
           (onDoubleClick)="onDoubleClick($event)"
-          (onCellEdit)="onCellEdit($event)"
 
           appCopy
 
@@ -43,11 +42,17 @@
       <igx-drop-down-item [value]="'.csv'">CSV</igx-drop-down-item>
     </igx-drop-down>
 
-    <button igxButton="icon" [disabled]="!hasPrevHistory" (click)="onUndo()">
+    <button igxButton="icon" [disabled]="!canDelete" (click)="onDelete()">
+      <igx-icon>delete</igx-icon>
+    </button>
+    <button igxButton="icon" [disabled]="!canUndo" (click)="onUndo()">
       <igx-icon>undo</igx-icon>
     </button>
-    <button igxButton="icon" [disabled]="!hasNextHistory" (click)="onRedo()">
+    <button igxButton="icon" [disabled]="!canRedo" (click)="onRedo()">
       <igx-icon>redo</igx-icon>
+    </button>
+    <button igxButton="icon" [disabled]="!canCommit" (click)="onCommit()">
+      <igx-icon>done_all</igx-icon>
     </button>
   </ng-template>
 

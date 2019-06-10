@@ -9,7 +9,7 @@ import * as uuid from 'uuid';
 
 import { GridStore } from './grid.store';
 import { ID_KEY } from '../../constant';
-import { ItemToUpdate } from '../../models';
+import { ItemToChange, ChangeType } from '../../models';
 import { typeOf } from 'src/app/shared/utils';
 
 @Injectable({ providedIn: 'root' })
@@ -45,10 +45,25 @@ export class GridService {
     });
   }
 
-  updateData(dataToUpdate: ItemToUpdate[]): void {
+  changeData(dataToChange: ItemToChange[]): void {
     applyTransaction(() => {
-      dataToUpdate.forEach(item => {
-        this.gridStore.update(item.id, item.update);
+      dataToChange.forEach(item => {
+        switch (item.type) {
+          case ChangeType.Add: {
+            this.gridStore.add(item.value);
+            break;
+          }
+
+          case ChangeType.Update: {
+            this.gridStore.update(item.id, item.value);
+            break;
+          }
+
+          case ChangeType.Remove: {
+            this.gridStore.remove(item.id);
+            break;
+          }
+        }
       });
     });
   }

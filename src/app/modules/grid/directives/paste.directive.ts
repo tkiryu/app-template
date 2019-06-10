@@ -5,14 +5,14 @@ import { takeUntil } from 'rxjs/operators';
 
 import { IgxGridComponent } from 'igniteui-angular';
 
-import { ItemToUpdate } from '../models';
+import { ItemToChange, ChangeType } from '../models';
 
 @Directive({
   selector: '[appPaste]'
 })
 export class PasteDirective implements AfterViewInit, OnDestroy {
 
-  @Output() pasteData = new EventEmitter<ItemToUpdate[]>();
+  @Output() pasteData = new EventEmitter<ItemToChange[]>();
 
   private destroy$ = new Subject<boolean>();
 
@@ -80,7 +80,7 @@ export class PasteDirective implements AfterViewInit, OnDestroy {
           // フィルター・ソート・グルーピングされている状態のデータビューは
           // grid.verticalScrollContainer.igxForOf
           // からしか取得できない
-          const pasteData: ItemToUpdate[] = this.grid.verticalScrollContainer.igxForOf
+          const pasteData: ItemToChange[] = this.grid.verticalScrollContainer.igxForOf
             // 貼り付け範囲内の行に絞り込み
             .filter((row, index) => rowStart <= index && index <= rowEnd)
             // 貼り付けデータを作成
@@ -93,7 +93,8 @@ export class PasteDirective implements AfterViewInit, OnDestroy {
 
               return {
                 id,
-                update: updates[index]
+                value: updates[index],
+                type: ChangeType.Update
               };
             })
             // グループ行の情報はフィルターアウトする

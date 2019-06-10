@@ -7,7 +7,7 @@ import { IOutputData } from 'angular-split/lib/interface';
 import { NavigationQuery } from 'src/app/states/navigation';
 import { SearchQuery, SearchService } from '../../states/search';
 import { GridQuery, GridService } from '../../states/grid';
-import { SearchCondition, SearchResult, ItemToUpdate } from '../../models';
+import { SearchCondition, SearchResult, ItemToChange } from '../../models';
 
 import { GridComponent } from '../../components';
 
@@ -73,8 +73,8 @@ export class GridPageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.gridService.setData(dataToLoad);
   }
 
-  onUpdateData(dataToUpdate: ItemToUpdate[]) {
-    this.gridService.updateData(dataToUpdate);
+  onChangeData(dataToChange: ItemToChange[]) {
+    this.gridService.changeData(dataToChange);
   }
 
   onUndo(): void {
