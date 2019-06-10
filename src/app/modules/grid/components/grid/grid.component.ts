@@ -126,10 +126,6 @@ export class GridComponent {
     event.exporter.exportData(dataToExport, event.options);
   }
 
-  onDoubleClick(event: IGridCellEventArgs) {
-    this.selectItem.emit(event.cell.rowData);
-  }
-
   onPasteData(pasteData: ItemToChange[]): void {
     pasteData.forEach(pasteItem => {
       this.grid.updateRow(pasteItem.value, pasteItem.id);
