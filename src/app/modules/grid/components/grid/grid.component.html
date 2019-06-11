@@ -53,6 +53,10 @@
     <button igxButton="icon" [disabled]="!canCommit" (click)="onCommit()">
       <igx-icon>done_all</igx-icon>
     </button>
+    <button igxButton="flat" (click)="onColumnSettings()">
+      <igx-icon>settings</igx-icon>
+      列の設定
+    </button>
   </ng-template>
 
   <igx-column *ngFor="let column of columns"
@@ -79,13 +83,13 @@
 <igx-snackbar class="snackbar" [isVisible]="isLoadingFile" [autoHide]="false">
   {{ loadingFileName }}
   <span style="margin-left: 1rem;">
-      読み込み中
-      <svg id="dots" width="30px" height="20px">
-        <g fill="#FFFFFF">
-          <circle id="dot1" cx="5" cy="18" r="2"></circle>
-          <circle id="dot2" cx="15" cy="18" r="2"></circle>
-          <circle id="dot3" cx="25" cy="18" r="2"></circle>
-        </g>
-      </svg>
+    読み込み中
+    <svg id="dots" width="30px" height="20px">
+      <g fill="#FFFFFF">
+        <circle id="dot1" cx="5" cy="18" r="2"></circle>
+        <circle id="dot2" cx="15" cy="18" r="2"></circle>
+        <circle id="dot3" cx="25" cy="18" r="2"></circle>
+      </g>
+    </svg>
   </span>
 </igx-snackbar>

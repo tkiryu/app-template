@@ -1,0 +1,30 @@
+<div class="grid-area">
+  <igx-grid #grid
+            [locale]="'ja-JP'"
+            [data]="columnSettings"
+            [showToolbar]="true"
+            [toolbarTitle]="'列の設定'">
+    <igx-column [field]="'field'" [header]="'プロパティ名'" [dataType]="'string'" [pinned]="true" [resizable]="true">
+    </igx-column>
+    <igx-column [field]="'sampleValue'" [header]="'データ'" [pinned]="true" [resizable]="true">
+      <ng-template igxCellEditor></ng-template>
+    </igx-column>
+    <igx-column [field]="'header'" [header]="'ヘッダー名'" [dataType]="'string'" [resizable]="true" [editable]="true">
+    </igx-column>
+    <igx-column [field]="'dataType'" [header]="'データタイプ'" [dataType]="'string'" [resizable]="true" [editable]="true">
+      <ng-template igxCellEditor let-cell="cell">
+        <igx-select [displayDensity]="grid.displayDensity"
+                    [(ngModel)]="cell.editValue">
+          <igx-select-item *ngFor="let dataType of dataTypes"
+                           [value]="dataType">
+            {{ dataType }}
+          </igx-select-item>
+        </igx-select>
+      </ng-template>
+    </igx-column>
+  </igx-grid>
+</div>
+<div class="actions-area">
+  <button type="button" igxButton="flat" (click)="onCancel()">キャンセル</button>
+  <button type="button" igxButton="raised" (click)="onCommit()">決定</button>
+</div>

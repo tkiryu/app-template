@@ -1,6 +1,13 @@
 import { Component, ViewChild, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
-import { IgxGridComponent, IGridToolbarExportEventArgs, IGridCellEventArgs, ISelectionEventArgs, IgxGridTransaction, IgxTransactionService, TransactionType } from 'igniteui-angular';
+import {
+  IgxGridComponent,
+  IGridToolbarExportEventArgs,
+  ISelectionEventArgs,
+  IgxGridTransaction,
+  IgxTransactionService,
+  TransactionType
+} from 'igniteui-angular';
 
 import { SearchCondition, SearchResult, ItemToChange, ChangeType } from '../../models';
 import { ID_KEY } from '../../constant';
@@ -31,6 +38,8 @@ export class GridComponent {
   @Output() loadData = new EventEmitter<any[]>();
 
   @Output() changeData = new EventEmitter<ItemToChange[]>();
+
+  @Output() showColumnSettings = new EventEmitter<void>();
 
   @ViewChild('grid') grid: IgxGridComponent;
 
@@ -210,5 +219,9 @@ export class GridComponent {
     });
     this.grid.transactions.clear();
     this.changeData.emit(dataToChange);
+  }
+
+  onColumnSettings(): void {
+    this.showColumnSettings.emit();
   }
 }

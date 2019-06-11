@@ -6,15 +6,16 @@
 </div>
 
 <div class="grid-area">
-    <app-grid #grid
-              [isLoading]="isLoading$ | async"
-              [data]="data$ | async"
-              [columns]="columns$ | async"
-              [searchCondition]="searchCondition$ | async"
-              (searchResult)="onSearchResult($event)"
-              (loadData)="onLoadData($event)"
-              (changeData)="onChangeData($event)">
-    </app-grid>
+  <app-grid #grid
+            [isLoading]="isLoading$ | async"
+            [data]="data$ | async"
+            [columns]="columns$ | async"
+            [searchCondition]="searchCondition$ | async"
+            (searchResult)="onSearchResult($event)"
+            (loadData)="onLoadData($event)"
+            (changeData)="onChangeData($event)"
+            (showColumnSettings)="onShowColumnSettings()">
+  </app-grid>
 </div>
 <!-- TODO: maybe remove someday -->
 <!-- <as-split [direction]="'horizontal'"

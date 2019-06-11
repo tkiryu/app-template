@@ -1,0 +1,20 @@
+:host {
+  display: block;
+  width: 80vw;
+  height: 80vh;
+  background-color: #fff;
+  position: relative;
+}
+
+.grid-area {
+  height: calc(100% - 68px);
+}
+
+.actions-area {
+  text-align: right;
+  padding: 1rem;
+
+  button + button {
+    margin-left: 1rem;
+  }
+}

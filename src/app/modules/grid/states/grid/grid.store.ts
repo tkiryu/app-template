@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { StoreConfig, EntityState, EntityStore } from '@datorama/akita';
 import { ID_KEY } from '../../constant';
-import { Item } from '../../models';
+import { Item, Column } from '../../models';
 
 export interface GridState extends EntityState<Item> {
   ui: {
-    columns: any[];
+    columns: Column[];
   };
 }
 
