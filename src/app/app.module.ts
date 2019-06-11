@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule, LOCALE_ID } from '@angular/core';
 
 import { registerLocaleData } from '@angular/common';
@@ -34,6 +35,7 @@ import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
   imports: [
     BrowserModule,
     NoopAnimationsModule,
+    HttpClientModule,
 
     AngularSplitModule.forRoot(),
 
