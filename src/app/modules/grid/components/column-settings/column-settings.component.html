@@ -2,6 +2,7 @@
   <igx-grid #grid
             [locale]="'ja-JP'"
             [data]="columnSettings"
+            [primaryKey]="'field'"
             [showToolbar]="true"
             [toolbarTitle]="'列の設定'">
     <igx-column [field]="'field'" [header]="'プロパティ名'" [dataType]="'string'" [pinned]="true" [resizable]="true">
@@ -26,5 +27,5 @@
 </div>
 <div class="actions-area">
   <button type="button" igxButton="flat" (click)="onCancel()">キャンセル</button>
-  <button type="button" igxButton="raised" (click)="onCommit()">決定</button>
+  <button type="button" igxButton="raised" [disabled]="!canCommit" (click)="onCommit()">決定</button>
 </div>
