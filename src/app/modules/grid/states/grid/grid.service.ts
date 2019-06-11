@@ -68,7 +68,6 @@ export class GridService {
 
   changeDataTypes(data: any[], columns: Column[]): void {
     const newData = data.map(item => {
-      // TODO: データのタイプを変更する
       return columns.reduce((obj, column) => {
         const fromValue = item[column.field];
         const fromType = typeOf(fromValue);
