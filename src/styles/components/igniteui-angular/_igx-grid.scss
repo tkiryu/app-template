@@ -1,0 +1,40 @@
+/**
+ * override styles for igx-grid
+ */
+
+// row
+.igx-grid__tr--deleted {
+  background-color:  rgba(0, 0, 0, 0.12);
+}
+
+// cell
+.igx-grid__td {
+  // 縦線表示
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.igx-grid__td--edited {
+  background-color: rgba(0, 255, 0, 0.08)
+}
+
+.igx-grid__td-text {
+  // 改行コードをそのまま表示
+  white-space: pre;
+  line-height: 1.4rem;
+}
+
+// toolbar
+.igx-grid-toolbar__title {
+  flex: 0 0 100px;
+}
+
+// TODO: log as GitHub Issue: disabled igxButton state is overridden.
+// disabled igxButton state in igx-grid toolbar
+// https://github.com/IgniteUI/igniteui-angular/issues/4958
+.igx-grid-toolbar__custom-content {
+  flex: 1 1 auto;
+
+  .igx-button--icon.igx-button--disabled {
+    color: rgba(0, 0, 0, 0.26);
+  }
+}
