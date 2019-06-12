@@ -7,5 +7,5 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent {
-  @Input() companyName = 'APP TEMPLATE';
+  @Input() companyName = 'INFRAGISTICS';
 }
