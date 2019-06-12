@@ -11,7 +11,14 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AngularSplitModule } from 'angular-split';
 
-import { IgxNavbarModule, IgxNavigationDrawerModule, IgxIconModule, IgxLayoutModule, IgxToggleModule } from 'igniteui-angular';
+import {
+  IgxAvatarModule,
+  IgxNavbarModule,
+  IgxNavigationDrawerModule,
+  IgxIconModule,
+  IgxLayoutModule,
+  IgxToggleModule
+} from 'igniteui-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -39,6 +46,7 @@ import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
 
     AngularSplitModule.forRoot(),
 
+    IgxAvatarModule,
     IgxIconModule,
     IgxNavbarModule,
     IgxNavigationDrawerModule,
