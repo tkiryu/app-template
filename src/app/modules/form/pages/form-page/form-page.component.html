@@ -31,9 +31,9 @@
     </igx-input-group>
   </div>
   <div class="form-row">
-    <igx-date-picker locale="ja-JP" formControlName="birthday" class="form-row__control">
+    <igx-date-picker locale="ja-JP" [mode]="'dropdown'" [mask]="'yyyy/MM/dd'" formControlName="birthday" class="form-row__control">
       <ng-template igxDatePickerTemplate let-openDialog="openDialog" let-value="value" let-displayData="displayData">
-        <igx-input-group type="border">
+        <igx-input-group type="border" #dropDownTarget>
           <igx-prefix>
             <igx-icon>cake</igx-icon>
           </igx-prefix>
