@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { IgxGridComponent } from 'igniteui-angular';
 
 import { ItemToChange, ChangeType } from '../models';
+import { clipboardToJson } from 'src/app/shared/utils';
 
 @Directive({
   selector: '[appPaste]'
@@ -39,13 +40,9 @@ export class PasteDirective implements AfterViewInit, OnDestroy {
             return;
           }
 
-          // コピーした文字列を、行xセルの二次元配列に変換
-          const data: string[][] = event.clipboardData.getData('text')
-            .trim()
-            // 改行コードで分割し、行データの配列に変換
-            .split(/\r?\n/)
-            // タブで分割し、セルデータの配列に変換
-            .map(row => row.split('\t'));
+          // コピーした文字列を解析して配列データに変換
+          const text = event.clipboardData.getData('text');
+          const data = clipboardToJson(text);
 
           const { columnStart, rowStart } = ranges[0];
           const rowEnd = rowStart + (data.length - 1);
