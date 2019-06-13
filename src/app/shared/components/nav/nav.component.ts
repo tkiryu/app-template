@@ -11,6 +11,12 @@ import { NavigationMode } from 'src/app/states/navigation/navigation-mode.enum';
 })
 export class NavComponent {
 
+  pages = [
+    { url: '/dashboard', icon: 'dashboard', name: 'Dashboard'},
+    { url: '/grid', icon: 'grid_on', name: 'Grid'},
+    { url: '/form', icon: 'input', name: 'Form'}
+  ];
+
   @ViewChild('nav') nav: IgxNavigationDrawerComponent;
 
   constructor(private navigationService: NavigationService) { }

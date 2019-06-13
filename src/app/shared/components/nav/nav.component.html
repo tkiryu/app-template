@@ -7,30 +7,25 @@
                 (closing)="onClosing()"
                 (closed)="onClosed()">
   <ng-template igxDrawer>
-    <span igxDrawerItem [routerLink]="'/dashboard'" routerLinkActive #dashboard="routerLinkActive" [active]="dashboard.isActive">
-      <igx-icon>dashboard</igx-icon>
-      <span>Dashboard</span>
-    </span>
-    <span igxDrawerItem [routerLink]="'/grid'" routerLinkActive #grid="routerLinkActive" [active]="grid.isActive">
-      <igx-icon>grid_on</igx-icon>
-      <span>Grid</span>
-    </span>
-    <span [routerLink]="'/form'" igxDrawerItem routerLinkActive #form="routerLinkActive" [active]="form.isActive">
-      <igx-icon>input</igx-icon>
-      <span>Form</span>
+    <span *ngFor="let page of pages"
+          igxDrawerItem
+          [routerLink]="page.url"
+          routerLinkActive
+          #link="routerLinkActive"
+          [active]="link.isActive">
+      <igx-icon>{{ page.icon }}</igx-icon>
+      <span>{{ page.name }}</span>
     </span>
   </ng-template>
 
   <ng-template igxDrawerMini>
-    <span igxDrawerItem [routerLink]="'/dashboard'" routerLinkActive #dashboard="routerLinkActive" [active]="dashboard.isActive">
-      <igx-icon>dashboard</igx-icon>
-    </span>
-    <span igxDrawerItem [routerLink]="'/grid'" routerLinkActive #grid="routerLinkActive" [active]="grid.isActive">
-      <igx-icon>grid_on</igx-icon>
-    </span>
-    <span igxDrawerItem [routerLink]="'/form'" igxDrawerItem routerLinkActive #form="routerLinkActive"
-          [active]="form.isActive">
-      <igx-icon>input</igx-icon>
+    <span *ngFor="let page of pages"
+          igxDrawerItem
+          [routerLink]="page.url"
+          routerLinkActive
+          #link="routerLinkActive"
+          [active]="link.isActive">
+      <igx-icon>{{ page.icon }}</igx-icon>
     </span>
   </ng-template>
 </igx-nav-drawer>
