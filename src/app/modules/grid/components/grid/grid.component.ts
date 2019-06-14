@@ -37,7 +37,7 @@ export class GridComponent {
 
   @Output() showColumnSettings = new EventEmitter<void>();
 
-  @ViewChild('grid') grid: IgxGridComponent;
+  @ViewChild('grid', { static: true }) grid: IgxGridComponent;
 
   primaryKey = ID_KEY;
 

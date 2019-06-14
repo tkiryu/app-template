@@ -3,9 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: 'dashboard', loadChildren: './modules/dashboard/dashboard.module#DashboardModule' },
-  { path: 'grid', loadChildren: './modules/grid/grid.module#GridModule' },
-  { path: 'form', loadChildren: './modules/form/form.module#FormModule' },
+  { path: 'dashboard', loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule) },
+  { path: 'grid', loadChildren: () => import('./modules/grid/grid.module').then(m => m.GridModule) },
+  { path: 'form', loadChildren: () => import('./modules/form/form.module').then(m => m.FormModule) },
 ];
 
 @NgModule({

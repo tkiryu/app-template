@@ -26,7 +26,7 @@ export class ColumnSettingsComponent {
     'boolean'
   ];
 
-  @ViewChild('grid') grid: IgxGridComponent;
+  @ViewChild('grid', { static: true }) grid: IgxGridComponent;
 
   get canCommit(): boolean {
     return this.grid.transactions.getAggregatedChanges(false).length > 0;

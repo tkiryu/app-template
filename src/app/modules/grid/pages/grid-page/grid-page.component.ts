@@ -34,7 +34,7 @@ export class GridPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   extension = '';
 
-  @ViewChild('grid') grid: GridComponent;
+  @ViewChild('grid', { static: true }) grid: GridComponent;
 
   private overlayId: string;
 

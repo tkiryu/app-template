@@ -9,7 +9,7 @@ import { IgxBannerComponent } from 'igniteui-angular';
 })
 export class DashboardPageComponent implements OnInit {
 
-  @ViewChild('banner') banner: IgxBannerComponent;
+  @ViewChild('banner', { static: false }) banner: IgxBannerComponent;
 
   constructor() { }
 

@@ -18,7 +18,7 @@ export class SearchBarComponent implements AfterViewInit {
 
   @Output() search = new EventEmitter<SearchCondition>();
 
-  @ViewChild('searchBox') searchBox: ElementRef;
+  @ViewChild('searchBox', { static: true }) searchBox: ElementRef;
 
   constructor(private zone: NgZone) { }
 

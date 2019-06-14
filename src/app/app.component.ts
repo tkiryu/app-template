@@ -24,7 +24,7 @@ export class AppComponent {
     return 'calc(100vw - 200px)';
   }
 
-  @ViewChild('nav') nav: NavComponent;
+  @ViewChild('nav', { static: true }) nav: NavComponent;
 
   constructor(private navigationQuery: NavigationQuery) {}
 

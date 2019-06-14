@@ -17,7 +17,7 @@ export class NavComponent {
     { url: '/form', icon: 'input', name: 'Form'}
   ];
 
-  @ViewChild('nav') nav: IgxNavigationDrawerComponent;
+  @ViewChild('nav', { static: true }) nav: IgxNavigationDrawerComponent;
 
   constructor(private navigationService: NavigationService) { }
 
