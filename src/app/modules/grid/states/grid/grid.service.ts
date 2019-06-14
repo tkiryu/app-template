@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { applyTransaction } from '@datorama/akita';
 
 import * as uuid from 'uuid';
@@ -10,33 +8,50 @@ import * as uuid from 'uuid';
 import { GridStore } from './grid.store';
 import { ID_KEY } from '../../constant';
 import { ItemToChange, ChangeType, Column } from '../../models';
-import { typeOf } from 'src/app/shared/utils';
+import { typeOf, excelToJson, csvToJson } from 'src/app/shared/utils';
 
 @Injectable({ providedIn: 'root' })
 export class GridService {
   private url = '/assets/data.json';
 
-  constructor(private gridStore: GridStore, private http: HttpClient) {}
+  constructor(private gridStore: GridStore, private http: HttpClient) { }
 
-  loadData(urlOrData?: string | any[]): void {
-    if (Array.isArray(urlOrData)) {
-      this.setData(urlOrData);
-      return;
-    }
+  async loadDataFromUrl(url?: string): Promise<void> {
+    this.gridStore.reset();
 
-    let url = urlOrData as string;
     if (!url) {
       url = this.url;
     }
 
-    this.http.get<any[]>(url)
-      .pipe(
-        catchError(err => {
-          this.gridStore.setError(err);
-          return throwError(err);
-        })
-      )
-      .subscribe(data => this.setData(data));
+    // await/catch パターン
+    // https://qiita.com/akameco/items/cc73afcdb5ac5d0774bc
+    const data = await this.http.get<any[]>(url).toPromise()
+      .catch(err => {
+        console.error(`読み込みに失敗しました: ${JSON.stringify(err, null, '  ')}`);
+        this.gridStore.setError(err);
+        return [];
+      });
+
+    this.setData(data);
+  }
+
+  async loadDataFromFile(file: File, extension: string): Promise<void> {
+    this.gridStore.reset();
+
+    let load: (file: File) => Promise<any[]>;
+    if (extension === '.xlsx') {
+      load = excelToJson;
+    } else if (extension === '.csv') {
+      load = csvToJson;
+    }
+
+    const data = await load(file).catch(err => {
+      console.error(`読み込みに失敗しました: ${JSON.stringify(err, null, '  ')}`);
+      this.gridStore.setError(err);
+      return [];
+    });
+
+    this.setData(data);
   }
 
   changeData(dataToChange: ItemToChange[]): void {

@@ -1,5 +1,10 @@
+<ng-template #loadingTemplate>
+  <ng-content select=".loading"></ng-content>
+</ng-template>
+
 <igx-grid #grid
           [isLoading]="isLoading"
+          [loadingGridTemplate]="loadingTemplate"
           [data]="data"
           [primaryKey]="primaryKey"
           [locale]="'ja-JP'"
@@ -27,20 +32,6 @@
 
           appRangeRowSelection>
   <ng-template igxToolbarCustomContent let-igxGrid="grid">
-    <input #inputFile
-           type="file"
-           [accept]="acceptExtension"
-           style="display: none;"
-           (change)="onImportFromFile($event)">
-    <button igxButton [igxToggleAction]="importDropdown" [igxDropDownItemNavigation]="importDropdown">
-      インポート
-      <igx-icon>arrow_drop_down</igx-icon>
-    </button>
-    <igx-drop-down #importDropdown (onSelection)="onSelectFileType($event, inputFile)">
-      <igx-drop-down-item [value]="'.xlsx'">Excel</igx-drop-down-item>
-      <igx-drop-down-item [value]="'.csv'">CSV</igx-drop-down-item>
-    </igx-drop-down>
-
     <button igxButton="icon" [disabled]="!canDelete" (click)="onDelete()">
       <igx-icon>delete</igx-icon>
     </button>
@@ -79,17 +70,3 @@
   </igx-column>
 
 </igx-grid>
-
-<igx-snackbar class="snackbar" [isVisible]="isLoadingFile" [autoHide]="false">
-  {{ loadingFileName }}
-  <span style="margin-left: 1rem;">
-    読み込み中
-    <svg id="dots" width="30px" height="20px">
-      <g fill="#FFFFFF">
-        <circle id="dot1" cx="5" cy="18" r="2"></circle>
-        <circle id="dot2" cx="15" cy="18" r="2"></circle>
-        <circle id="dot3" cx="25" cy="18" r="2"></circle>
-      </g>
-    </svg>
-  </span>
-</igx-snackbar>

@@ -3,6 +3,23 @@
                   [result]="searchResult$ | async"
                   (search)="onSearch($event)">
   </app-search-bar>
+  <button type="button"
+          igxButton="raised"
+          [igxToggleAction]="importDropdown"
+          [igxDropDownItemNavigation]="importDropdown">
+    <igx-icon>arrow_drop_down</igx-icon>
+    インポート
+  </button>
+  <igx-drop-down #importDropdown (onSelection)="onSelectImportType($event, inputFile)">
+    <igx-drop-down-item [value]="'.xlsx'">Excel</igx-drop-down-item>
+    <igx-drop-down-item [value]="'.csv'">CSV</igx-drop-down-item>
+    <!-- <igx-drop-down-item [value]="'url'">URL</igx-drop-down-item> -->
+  </igx-drop-down>
+  <input #inputFile
+         type="file"
+         style="display: none;"
+         [accept]="extension"
+         (change)="onImportFromFile($event)">
 </div>
 
 <div class="grid-area">
@@ -12,11 +29,26 @@
             [columns]="columns$ | async"
             [searchCondition]="searchCondition$ | async"
             (searchResult)="onSearchResult($event)"
-            (loadData)="onLoadData($event)"
             (changeData)="onChangeData($event)"
             (showColumnSettings)="onShowColumnSettings()">
+    <div class="loading">
+      <div>
+        <igx-circular-bar [indeterminate]="true"></igx-circular-bar>
+      </div>
+      <div>
+        読み込み中
+        <svg id="dots" width="30px" height="20px">
+          <g fill="#000">
+            <circle id="dot1" cx="5" cy="18" r="2"></circle>
+            <circle id="dot2" cx="15" cy="18" r="2"></circle>
+            <circle id="dot3" cx="25" cy="18" r="2"></circle>
+          </g>
+        </svg>
+      </div>
+    </div>
   </app-grid>
 </div>
+
 <!-- TODO: maybe remove someday -->
 <!-- <as-split [direction]="'horizontal'"
           (dragEnd)="onDragEnd($event)">

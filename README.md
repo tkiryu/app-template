@@ -25,3 +25,38 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+## 
+- ダッシュボード画面
+  - 作業中
+- グリッド画面
+  - ビルトイン機能で実現している部分
+    - Excelスタイルフィルター
+    - 列ソート
+    - グルーピング
+    - 一括編集
+    - 列リサイズ
+    - 列移動
+    - 列固定
+    - 行選択
+    - グローバル検索
+    - データエクスポート(Excel, CSV)
+
+  - カスタム実装している部分
+    - データエクスポート(Excel, CSV)
+      - 選択行のみのエクスポートも可能
+    - データインポート(Excel, CSV)
+    - コピー＆ペースト
+      - ctrl+cでグリッドデータコピー -> ctrl+vでExcel貼り付け
+      - ctrl+cでExcelデータコピー -> ctrl+vでグリッド貼り付け
+    -	一括編集
+      - ctrl+zでUndo
+      - ctrl+yでRedo
+    - 行選択
+      - Shift+clickで範囲選択
+    - 列定義の変更
+      - ヘッダー名
+      - データタイプ(現状上手く変換できていない)
+- フォーム画面
+  - 作業中

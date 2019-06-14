@@ -3,7 +3,6 @@ import { Component, ViewChild, Input, Output, EventEmitter, ChangeDetectionStrat
 import {
   IgxGridComponent,
   IGridToolbarExportEventArgs,
-  ISelectionEventArgs,
   IgxGridTransaction,
   IgxTransactionService,
   TransactionType
@@ -11,7 +10,6 @@ import {
 
 import { SearchCondition, SearchResult, ItemToChange, ChangeType } from '../../models';
 import { ID_KEY } from '../../constant';
-import { csvToJson, excelToJson } from 'src/app/shared/utils';
 
 @Component({
   selector: 'app-grid',
@@ -34,8 +32,6 @@ export class GridComponent {
   @Output() searchResult = new EventEmitter<SearchResult>();
 
   @Output() selectItem = new EventEmitter<any>();
-
-  @Output() loadData = new EventEmitter<any[]>();
 
   @Output() changeData = new EventEmitter<ItemToChange[]>();
 
@@ -71,11 +67,6 @@ export class GridComponent {
   get canCommit(): boolean {
     return this.grid.transactions.getAggregatedChanges(false).length > 0;
   }
-
-  acceptExtension = '';
-
-  isLoadingFile = false;
-  loadingFileName = '';
 
   constructor() { }
 
@@ -139,45 +130,6 @@ export class GridComponent {
     pasteData.forEach(pasteItem => {
       this.grid.updateRow(pasteItem.value, pasteItem.id);
     });
-  }
-
-  onSelectFileType(event: ISelectionEventArgs, input: HTMLInputElement): void {
-    this.acceptExtension = event.newSelection.value;
-    input.accept = this.acceptExtension;
-    input.click();
-  }
-
-  async onImportFromFile(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files.length !== 1) {
-      alert('複数ファイルは読み込めません');
-      return;
-    }
-
-    const file = input.files[0];
-
-    this.isLoadingFile = true;
-    this.loadingFileName = file.name;
-
-    try {
-      let data;
-      switch (this.acceptExtension) {
-        case '.xlsx': {
-          data = await excelToJson(file);
-          break;
-        }
-        case '.csv': {
-          data = await csvToJson(file);
-          break;
-        }
-      }
-      this.loadData.emit(data);
-    } catch (e) {
-      alert(`読み込みに失敗しました: ${JSON.stringify(e, null, '  ')}`);
-    }
-
-    this.isLoadingFile = false;
-    this.loadingFileName = '';
   }
 
   onDelete(): void {

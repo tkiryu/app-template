@@ -5,7 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { IOutputData } from 'angular-split/lib/interface';
 
-import { IgxOverlayService, OverlayCancelableEventArgs, OverlayEventArgs } from 'igniteui-angular';
+import { IgxOverlayService, OverlayCancelableEventArgs, OverlayEventArgs, ISelectionEventArgs } from 'igniteui-angular';
 
 import { NavigationQuery } from 'src/app/states/navigation';
 import { SearchQuery, SearchService } from '../../states/search';
@@ -32,6 +32,8 @@ export class GridPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   columns$ = this.gridQuery.columns$;
 
+  extension = '';
+
   @ViewChild('grid') grid: GridComponent;
 
   private overlayId: string;
@@ -48,7 +50,7 @@ export class GridPageComponent implements OnInit, AfterViewInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.gridService.loadData();
+    this.gridService.loadDataFromUrl();
 
     this.overlayService.onOpening
       .pipe(takeUntil(this.destroy$))
@@ -117,8 +119,31 @@ export class GridPageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.searchService.updateSearchResult(searchResult);
   }
 
-  onLoadData(dataToLoad: any[]) {
-    this.gridService.loadData(dataToLoad);
+  onSelectImportType(event: ISelectionEventArgs, input: HTMLInputElement): void {
+    const type = event.newSelection.value;
+    if (type === 'url') {
+      // TODO: URL 入力ダイアログを表示する
+    } else {
+      // ファイルダイアログを表示する
+      this.extension = event.newSelection.value;
+      input.accept = this.extension;
+      input.click();
+    }
+  }
+
+  async onImportFromFile(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files.length !== 1) {
+      alert('複数ファイルは読み込めません');
+      return;
+    }
+
+    const file = input.files[0];
+    await this.gridService.loadDataFromFile(file, this.extension);
+  }
+
+  async onImportFromUrl(url: string) {
+    await this.gridService.loadDataFromUrl(url);
   }
 
   onChangeData(dataToChange: ItemToChange[]): void {

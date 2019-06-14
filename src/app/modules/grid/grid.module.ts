@@ -10,7 +10,7 @@ import {
   IgxExcelExporterService,
   IgxCsvExporterService,
   IgxOverlayService,
-  IgxSnackbarModule,
+  IgxProgressBarModule,
   IgxSelectModule
 } from 'igniteui-angular';
 import { IgxResourceStringsJA } from 'igniteui-angular-i18n';
@@ -45,7 +45,7 @@ import { CopyDirective, PasteDirective, UndoRedoDirective, RangeRowSelectionDire
     AngularSplitModule.forChild(),
 
     IgxGridModule,
-    IgxSnackbarModule,
+    IgxProgressBarModule,
     IgxSelectModule
   ],
   providers: [
