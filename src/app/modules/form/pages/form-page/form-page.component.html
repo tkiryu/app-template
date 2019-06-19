@@ -41,7 +41,7 @@
           <input #dateInput required igxInput [value]="displayData">
           <igx-hint>例: 2019/01/01</igx-hint>
           <igx-suffix>
-            <igx-icon (click)="openDialog()">today</igx-icon>
+            <igx-icon (click)="openDialog(dropDownTarget.element.nativeElement)">today</igx-icon>
             <igx-icon *ngIf="dateInput.value" (click)="dateInput.value = null; clear('birthday')">cancel</igx-icon>
           </igx-suffix>
         </igx-input-group>
