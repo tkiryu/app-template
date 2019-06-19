@@ -23,7 +23,7 @@ export class UndoRedoDirective implements AfterViewInit, OnDestroy {
       const keydown$ = fromEvent<KeyboardEvent>(this.grid.nativeElement, 'keydown');
 
       keydown$.pipe(
-        filter(event => event.ctrlKey && event.key === 'z' && !event.repeat),
+        filter(event => event.ctrlKey && event.key.toLowerCase() === 'z' && !event.repeat),
         takeUntil(this.destroy$)
       )
       .subscribe(event => {
@@ -32,7 +32,7 @@ export class UndoRedoDirective implements AfterViewInit, OnDestroy {
       });
 
       keydown$.pipe(
-        filter(event => event.ctrlKey && event.key === 'y' && !event.repeat),
+        filter(event => event.ctrlKey && event.key.toLowerCase() === 'y' && !event.repeat),
         takeUntil(this.destroy$)
       )
       .subscribe(event => {
