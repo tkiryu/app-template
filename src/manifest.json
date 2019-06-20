@@ -1,7 +1,7 @@
 {
   "name": "app-template",
   "short_name": "app-template",
-  "theme_color": "#3f51b5",
+  "theme_color": "#002984",
   "background_color": "#ffffff",
   "display": "standalone",
   "orientation": "landscape",
