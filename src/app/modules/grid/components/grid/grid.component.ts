@@ -68,6 +68,10 @@ export class GridComponent {
     return this.grid.transactions.getAggregatedChanges(false).length > 0;
   }
 
+  get canClear(): boolean {
+    return this.grid.transactions.canUndo || this.grid.transactions.canRedo;
+  }
+
   constructor() { }
 
   calculateGridSizes(): void {
@@ -171,6 +175,10 @@ export class GridComponent {
     });
     this.grid.transactions.clear();
     this.changeData.emit(dataToChange);
+  }
+
+  onClear(): void {
+    this.grid.transactions.clear();
   }
 
   onColumnSettings(): void {

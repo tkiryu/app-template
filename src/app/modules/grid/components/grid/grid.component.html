@@ -44,6 +44,9 @@
     <button igxButton="icon" [disabled]="!canCommit" (click)="onCommit()">
       <igx-icon>done_all</igx-icon>
     </button>
+    <button igxButton="icon" [disabled]="!canClear" (click)="onClear()">
+      <igx-icon>clear</igx-icon>
+    </button>
     <button igxButton="flat" (click)="onColumnSettings()">
       <igx-icon>settings</igx-icon>
       列の設定
