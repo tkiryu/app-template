@@ -44,6 +44,10 @@ export class PasteDirective implements AfterViewInit, OnDestroy {
           const text = event.clipboardData.getData('text');
           const data = clipboardToJson(text);
 
+          if (data.length === 0) {
+            return;
+          }
+
           const { columnStart, rowStart } = ranges[0];
           const rowEnd = rowStart + (data.length - 1);
           const columnEnd = (columnStart as number) + (data[0].length - 1);
