@@ -48,27 +48,3 @@
     </div>
   </app-grid>
 </div>
-
-<!-- TODO: maybe remove someday -->
-<!-- <as-split [direction]="'horizontal'"
-          (dragEnd)="onDragEnd($event)">
-  <as-split-area [size]="100">
-    <app-grid #grid
-              [isLoading]="isLoading$ | async"
-              [data]="data$ | async"
-              [columns]="columns$ | async"
-              [searchCondition]="searchCondition$ | async"
-              (searchResult)="onSearchResult($event)"
-              (selectItem)="onSelectItem($event)">
-    </app-grid>
-  </as-split-area>
-
-  <as-split-area [size]="detailItem ? 200 : 0">
-    <ng-container *ngIf="detailItem">
-      <button style="position: absolute; right: 0;" igxButton="icon" (click)="hideDetail()">
-        <igx-icon>clear</igx-icon>
-      </button>
-      <app-detail [item]="detailItem"></app-detail>
-    </ng-container>
-  </as-split-area>
-</as-split> -->

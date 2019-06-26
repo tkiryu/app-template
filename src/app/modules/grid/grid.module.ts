@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { AngularSplitModule } from 'angular-split';
-
 import {
   changei18n,
   IgxGridModule,
@@ -40,9 +38,6 @@ import { CopyDirective, PasteDirective, UndoRedoDirective, RangeRowSelectionDire
     CommonModule,
     FormsModule,
     GridRoutingModule,
-
-    // TODO: remove when it is fixed;https://github.com/bertrandg/angular-split/issues/149
-    AngularSplitModule.forChild(),
 
     IgxGridModule,
     IgxProgressBarModule,

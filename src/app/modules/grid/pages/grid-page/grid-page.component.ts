@@ -3,8 +3,6 @@ import { Component, ChangeDetectionStrategy, OnInit, AfterViewInit, ViewChild, O
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { IOutputData } from 'angular-split/lib/interface';
-
 import { IgxOverlayService, OverlayCancelableEventArgs, OverlayEventArgs, ISelectionEventArgs } from 'igniteui-angular';
 
 import { NavigationQuery } from 'src/app/states/navigation';
@@ -105,11 +103,6 @@ export class GridPageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.destroy$.next(true);
     this.destroy$.complete();
   }
-
-  // TODO: maybe remove someday
-  // onDragEnd(event: IOutputData): void {
-  //   this.grid.calculateGridSizes();
-  // }
 
   onSearch(searchCondition: SearchCondition): void {
     this.searchService.updateSearchCondition(searchCondition);

@@ -9,8 +9,6 @@ registerLocaleData(localeJa);
 
 import { ServiceWorkerModule } from '@angular/service-worker';
 
-import { AngularSplitModule } from 'angular-split';
-
 import {
   IgxAvatarModule,
   IgxNavbarModule,
@@ -43,8 +41,6 @@ import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
     BrowserModule,
     NoopAnimationsModule,
     HttpClientModule,
-
-    AngularSplitModule.forRoot(),
 
     IgxAvatarModule,
     IgxIconModule,
