@@ -17,7 +17,7 @@ changei18n(IgxResourceStringsJA);
 import { GridRoutingModule } from './grid-routing.module';
 import { GridPageComponent } from './pages/grid-page/grid-page.component';
 import { SearchBarComponent, GridComponent, ColumnSettingsComponent } from './components';
-import { CopyDirective, PasteDirective, UndoRedoDirective, RangeRowSelectionDirective } from './directives';
+import { PasteDirective, UndoRedoDirective, RangeRowSelectionDirective } from './directives';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,6 @@ import { CopyDirective, PasteDirective, UndoRedoDirective, RangeRowSelectionDire
     SearchBarComponent,
     GridComponent,
     ColumnSettingsComponent,
-    CopyDirective,
     PasteDirective,
     UndoRedoDirective,
     RangeRowSelectionDirective

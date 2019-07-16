@@ -21,7 +21,7 @@
           [exportCsvText]="'CSV'"
           (onToolbarExporting)="onToolbarExporting($event)"
 
-          appCopy
+          [clipboardOptions]="{ enabled: true, separator: '\t' }"
 
           appPaste
           (pasteData)="onPasteData($event)"
