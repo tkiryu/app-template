@@ -15,14 +15,5 @@ $app-palette: igx-palette($primary, $secondary);
 /**
  * igx-nav-drawer
  */
-
-// TODO: log as GihHub Issue: $item-border-radius is needed.
-// https://github.com/IgniteUI/igniteui-angular/issues/4964
-
 // TODO: log as GitHub Issue: name of "igx-navdrawer" is inconsistent.
-
-@include igx-navdrawer(igx-navdrawer-theme($border-radius: 0));
-.igx-nav-drawer__item,
-.igx-nav-drawer__item--active {
-  border-radius: 0;
-}
+@include igx-navdrawer(igx-navdrawer-theme($border-radius: 0, $item-border-radius: 0));
