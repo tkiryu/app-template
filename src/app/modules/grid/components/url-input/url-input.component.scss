@@ -1,0 +1,15 @@
+:host {
+  display: block;
+  background-color: #fff;
+  position: relative;
+  padding: 1rem;
+  text-align: right;
+}
+
+.url-input__input {
+  width: 30rem;
+}
+
+.url-input__input + .url-input__action {
+  margin-top: 1rem;
+}

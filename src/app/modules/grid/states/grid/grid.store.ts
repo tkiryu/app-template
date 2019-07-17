@@ -5,6 +5,7 @@ import { Item, Column } from '../../models';
 
 export interface GridState extends EntityState<Item> {
   ui: {
+    url: string;
     columns: Column[];
   };
 }
@@ -14,7 +15,12 @@ export interface GridState extends EntityState<Item> {
 export class GridStore extends EntityStore<GridState, any> {
 
   constructor() {
-    super({ ui: { columns: [] } });
+    super({
+      ui: {
+        url: '/assets/data.json',
+        columns: []
+      }
+    });
   }
 
 }

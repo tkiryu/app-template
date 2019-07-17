@@ -12,16 +12,10 @@ import { typeOf, excelToJson, csvToJson } from 'src/app/shared/utils';
 
 @Injectable({ providedIn: 'root' })
 export class GridService {
-  private url = '/assets/data.json';
-
   constructor(private gridStore: GridStore, private http: HttpClient) { }
 
-  async loadDataFromUrl(url?: string): Promise<void> {
+  async loadDataFromUrl(url: string): Promise<void> {
     this.gridStore.reset();
-
-    if (!url) {
-      url = this.url;
-    }
 
     // await/catch パターン
     // https://qiita.com/akameco/items/cc73afcdb5ac5d0774bc
@@ -32,7 +26,17 @@ export class GridService {
         return [];
       });
 
-    this.setData(data);
+    applyTransaction(() => {
+      this.gridStore.update(state => {
+        return {
+          ui: {
+            ...state.ui,
+            url
+          }
+        };
+      });
+      this.setData(data);
+    });
   }
 
   async loadDataFromFile(file: File, extension: string): Promise<void> {
@@ -51,7 +55,9 @@ export class GridService {
       return [];
     });
 
-    this.setData(data);
+    applyTransaction(() => {
+      this.setData(data);
+    });
   }
 
   changeData(dataToChange: ItemToChange[]): void {
@@ -117,7 +123,14 @@ export class GridService {
     });
     applyTransaction(() => {
       this.gridStore.set(newData);
-      this.gridStore.update({ ui: { columns } });
+      this.gridStore.update(state => {
+        return {
+          ui: {
+            ...state.ui,
+            columns
+          }
+        };
+      });
     });
   }
 
@@ -131,9 +144,14 @@ export class GridService {
       };
     });
 
-    applyTransaction(() => {
-      this.gridStore.set(dataWithId);
-      this.gridStore.update({ ui: { columns } });
+    this.gridStore.set(dataWithId);
+    this.gridStore.update(state => {
+      return {
+        ui: {
+          ...state.ui,
+          columns
+        }
+      };
     });
   }
 

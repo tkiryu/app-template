@@ -1,0 +1,19 @@
+<igx-input-group class="url-input__input" type="box">
+  <input type="url"
+         igxInput
+         required
+         pattern="^http(|s)://[0-9a-zA-Z/#&?%\.\-\+_=]+$"
+         [(ngModel)]="url"
+         #urlForm="ngModel">
+  <igx-hint>例: https://www.example.com</igx-hint>
+  <igx-suffix>
+    <igx-icon *ngIf="url?.length" (click)="clear()">cancel</igx-icon>
+  </igx-suffix>
+</igx-input-group>
+<button class="url-input__action"
+        type="button"
+        igxButton="raised"
+        [disabled]="urlForm.invalid"
+        (click)="onCommit()">
+  決定
+</button>

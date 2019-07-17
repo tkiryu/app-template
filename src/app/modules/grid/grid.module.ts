@@ -18,6 +18,7 @@ import { GridRoutingModule } from './grid-routing.module';
 import { GridPageComponent } from './pages/grid-page/grid-page.component';
 import { SearchBarComponent, GridComponent, ColumnSettingsComponent } from './components';
 import { PasteDirective, UndoRedoDirective, RangeRowSelectionDirective } from './directives';
+import { UrlInputComponent } from './components/url-input/url-input.component';
 
 @NgModule({
   declarations: [
@@ -25,13 +26,15 @@ import { PasteDirective, UndoRedoDirective, RangeRowSelectionDirective } from '.
     SearchBarComponent,
     GridComponent,
     ColumnSettingsComponent,
+    UrlInputComponent,
     PasteDirective,
     UndoRedoDirective,
     RangeRowSelectionDirective
   ],
   entryComponents: [
     // IgxOverlayService を介して動的に追加するため
-    ColumnSettingsComponent
+    ColumnSettingsComponent,
+    UrlInputComponent
   ],
   imports: [
     CommonModule,

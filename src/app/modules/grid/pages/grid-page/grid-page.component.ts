@@ -10,7 +10,7 @@ import { SearchQuery, SearchService } from '../../states/search';
 import { GridQuery, GridService } from '../../states/grid';
 import { SearchCondition, SearchResult, ItemToChange } from '../../models';
 
-import { GridComponent, ColumnSettingsComponent } from '../../components';
+import { GridComponent, ColumnSettingsComponent, UrlInputComponent } from '../../components';
 
 @Component({
   selector: 'app-grid-page',
@@ -48,7 +48,8 @@ export class GridPageComponent implements OnInit, AfterViewInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.gridService.loadDataFromUrl();
+    const url = this.gridQuery.getValue().ui.url;
+    this.gridService.loadDataFromUrl(url);
 
     this.overlayService.onOpening
       .pipe(takeUntil(this.destroy$))
@@ -56,31 +57,42 @@ export class GridPageComponent implements OnInit, AfterViewInit, OnDestroy {
         if (event.id !== this.overlayId) {
           return;
         }
-        const id = this.gridQuery.getValue().ids[0];
-        const sampleData = this.gridQuery.getEntity(id);
-        const columns = this.gridQuery.getValue().ui.columns;
-        const columnSettings = columns.map(column => {
-          return {
-            ...column,
-            sampleValue: sampleData[column.field]
-          };
-        });
-        const subs: Subscription[] = [];
-        const settings = event.componentRef.instance as ColumnSettingsComponent;
-        settings.columnSettings = columnSettings;
-        subs.push(settings.cancel
-          .subscribe(() => {
-            subs.forEach(sub => sub.unsubscribe());
-            this.overlayService.hide(this.overlayId);
-          }));
-        subs.push(settings.commit
-          .subscribe(newColumns => {
-            this.overlayService.hide(this.overlayId);
-            subs.forEach(sub => sub.unsubscribe());
+        if (event.componentRef.instance instanceof ColumnSettingsComponent) {
+          const id = this.gridQuery.getValue().ids[0];
+          const sampleData = this.gridQuery.getEntity(id);
+          const columns = this.gridQuery.getValue().ui.columns;
+          const columnSettings = columns.map(column => {
+            return {
+              ...column,
+              sampleValue: sampleData[column.field]
+            };
+          });
+          const subs: Subscription[] = [];
+          const settings = event.componentRef.instance;
+          settings.columnSettings = columnSettings;
+          subs.push(settings.cancel
+            .subscribe(() => {
+              subs.forEach(sub => sub.unsubscribe());
+              this.overlayService.hide(this.overlayId);
+            }));
+          subs.push(settings.commit
+            .subscribe(newColumns => {
+              this.overlayService.hide(this.overlayId);
+              subs.forEach(sub => sub.unsubscribe());
 
-            const data = this.gridQuery.getAll();
-            this.gridService.changeDataTypes(data, newColumns);
-          }));
+              const data = this.gridQuery.getAll();
+              this.gridService.changeDataTypes(data, newColumns);
+            }));
+        } else if (event.componentRef.instance instanceof UrlInputComponent) {
+          const urlInput = event.componentRef.instance;
+          urlInput.url = this.gridQuery.getValue().ui.url;
+          const sub = urlInput.commit.subscribe((url: string) => {
+            this.overlayService.hide(this.overlayId);
+            sub.unsubscribe();
+
+            this.gridService.loadDataFromUrl(url);
+          });
+        }
       });
 
     this.overlayService.onClosed
@@ -116,6 +128,7 @@ export class GridPageComponent implements OnInit, AfterViewInit, OnDestroy {
     const type = event.newSelection.value;
     if (type === 'url') {
       // TODO: URL 入力ダイアログを表示する
+      this.showUrlInput();
     } else {
       // ファイルダイアログを表示する
       this.extension = event.newSelection.value;
@@ -147,6 +160,13 @@ export class GridPageComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!this.overlayId) {
       this.overlayId = this.overlayService.attach(ColumnSettingsComponent);
     }
-    this.overlayService.show(this.overlayId, { closeOnOutsideClick: false });
+    this.overlayService.show(this.overlayId);
+  }
+
+  private showUrlInput(): void {
+    if (!this.overlayId) {
+      this.overlayId = this.overlayService.attach(UrlInputComponent);
+    }
+    this.overlayService.show(this.overlayId);
   }
 }

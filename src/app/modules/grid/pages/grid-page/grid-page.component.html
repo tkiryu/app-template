@@ -13,7 +13,7 @@
   <igx-drop-down #importDropdown (onSelection)="onSelectImportType($event, inputFile)">
     <igx-drop-down-item [value]="'.xlsx'">Excel</igx-drop-down-item>
     <igx-drop-down-item [value]="'.csv'">CSV</igx-drop-down-item>
-    <!-- <igx-drop-down-item [value]="'url'">URL</igx-drop-down-item> -->
+    <igx-drop-down-item [value]="'url'">URL</igx-drop-down-item>
   </igx-drop-down>
   <input #inputFile
          type="file"
