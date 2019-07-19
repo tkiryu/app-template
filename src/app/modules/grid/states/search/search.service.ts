@@ -15,4 +15,8 @@ export class SearchService {
   updateSearchResult(searchResult: SearchResult): void {
     this.searchStore.update({ searchResult });
   }
+
+  reset(): void {
+    this.searchStore.reset();
+  }
 }

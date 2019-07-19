@@ -5,7 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { IgxGridComponent } from 'igniteui-angular';
 
-import { ItemToChange, ChangeType } from '../models';
+import { ItemToChange, ChangeType } from '../../../models';
 import { clipboardToJson } from 'src/app/shared/utils';
 
 @Directive({

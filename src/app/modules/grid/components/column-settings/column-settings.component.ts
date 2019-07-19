@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, ViewChild, Output, E
 
 import { IgxGridComponent, IgxGridTransaction, IgxTransactionService } from 'igniteui-angular';
 
-import { ColumnSetting, Column } from '../../models';
+import { ColumnSetting, Column } from '../../../../models';
 
 @Component({
   selector: 'app-column-settings',

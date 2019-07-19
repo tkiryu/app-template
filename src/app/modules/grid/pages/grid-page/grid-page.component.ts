@@ -7,8 +7,9 @@ import { IgxOverlayService, OverlayCancelableEventArgs, OverlayEventArgs, ISelec
 
 import { NavigationQuery } from 'src/app/states/navigation';
 import { SearchQuery, SearchService } from '../../states/search';
-import { GridQuery, GridService } from '../../states/grid';
-import { SearchCondition, SearchResult, ItemToChange } from '../../models';
+import { GridQuery, GridService } from '../../../../states/grid';
+import { SearchCondition, SearchResult } from '../../models';
+import { ItemToChange } from '../../../../models';
 
 import { GridComponent, ColumnSettingsComponent, UrlInputComponent } from '../../components';
 
@@ -48,9 +49,6 @@ export class GridPageComponent implements OnInit, AfterViewInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    const url = this.gridQuery.getValue().ui.url;
-    this.gridService.loadDataFromUrl(url);
-
     this.overlayService.onOpening
       .pipe(takeUntil(this.destroy$))
       .subscribe((event: OverlayCancelableEventArgs) => {
@@ -111,7 +109,7 @@ export class GridPageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.gridService.removeData();
+    this.searchService.reset();
     this.destroy$.next(true);
     this.destroy$.complete();
   }

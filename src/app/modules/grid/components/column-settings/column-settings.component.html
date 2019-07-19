@@ -4,15 +4,15 @@
             [data]="columnSettings"
             [primaryKey]="'field'"
             [showToolbar]="true"
-            [toolbarTitle]="'列の設定'">
-    <igx-column [field]="'field'" [header]="'プロパティ名'" [dataType]="'string'" [pinned]="true" [resizable]="true">
+            [toolbarTitle]="'Column Settings'">
+    <igx-column [field]="'field'" [header]="'Property Name'" [dataType]="'string'" [pinned]="true" [resizable]="true">
     </igx-column>
-    <igx-column [field]="'sampleValue'" [header]="'データ'" [pinned]="true" [resizable]="true">
+    <igx-column [field]="'sampleValue'" [header]="'Data'" [pinned]="true" [resizable]="true">
       <ng-template igxCellEditor></ng-template>
     </igx-column>
-    <igx-column [field]="'header'" [header]="'ヘッダー名'" [dataType]="'string'" [resizable]="true" [editable]="true">
+    <igx-column [field]="'header'" [header]="'Header Name'" [dataType]="'string'" [resizable]="true" [editable]="true">
     </igx-column>
-    <igx-column [field]="'dataType'" [header]="'データタイプ'" [dataType]="'string'" [resizable]="true" [editable]="true">
+    <igx-column [field]="'dataType'" [header]="'Data Type'" [dataType]="'string'" [resizable]="true" [editable]="true">
       <ng-template igxCellEditor let-cell="cell">
         <igx-select [displayDensity]="grid.displayDensity"
                     [(ngModel)]="cell.editValue">
@@ -26,6 +26,6 @@
   </igx-grid>
 </div>
 <div class="actions-area">
-  <button type="button" igxButton="flat" (click)="onCancel()">キャンセル</button>
-  <button type="button" igxButton="raised" [disabled]="!canCommit" (click)="onCommit()">決定</button>
+  <button type="button" igxButton="flat" (click)="onCancel()">Cancel</button>
+  <button type="button" igxButton="raised" [disabled]="!canCommit" (click)="onCommit()">OK</button>
 </div>
