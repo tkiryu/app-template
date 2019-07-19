@@ -1,66 +1,54 @@
-<!--
-  TODO: remove when this page is completed.
--->
-<igx-snackbar [isVisible]="true">
-  <div style="display: flex;">
-    <igx-icon style="margin-right: 1rem;">warning</igx-icon>
-    <span style="font-size: 1.2rem;">Under Construction</span>
-  </div>
-</igx-snackbar>
-
 <div class="widget-container">
   <igx-card class="widget">
-    <igx-card-header>
-      <h3 igxCardHeaderTitle>Widget Title</h3>
-      <h5 igxCardHeaderSubtitle>Widget Sub Title</h5>
+    <igx-card-header class="widget__header">
+      <h3 igxCardHeaderTitle>Age Groups</h3>
     </igx-card-header>
-    <igx-card-content>
-      Widget Content
+    <igx-card-content class="widget__content">
+      <igx-data-chart [dataSource]="ageGroups"
+                      width="100%"
+                      height="100%">
+        <igx-category-x-axis #xAxis [label]="'ageGroup'"></igx-category-x-axis>
+        <igx-numeric-y-axis #yAxis [minimumValue]="0"></igx-numeric-y-axis>
+        <igx-column-series [xAxis]="xAxis"
+                           [yAxis]="yAxis"
+                           [valueMemberPath]="'count'"
+                           [showDefaultTooltip]="true"
+                           [isHighlightingEnabled]="true">
+        </igx-column-series>
+        <igx-category-item-highlight-layer></igx-category-item-highlight-layer>
+      </igx-data-chart>
     </igx-card-content>
   </igx-card>
   <igx-card class="widget">
-    <igx-card-header>
-      <h3 igxCardHeaderTitle>Widget Title</h3>
-      <h5 igxCardHeaderSubtitle>Widget Sub Title</h5>
+    <igx-card-header class="widget__header">
+      <h3 igxCardHeaderTitle>Blood Types</h3>
     </igx-card-header>
-    <igx-card-content>
-      Widget Content
+    <igx-card-content class="widget__content">
+      <igx-doughnut-chart width="100%" height="100%">
+        <igx-ring-series [dataSource]="bloodTypes"
+                         labelMemberPath="bloodType"
+                         valueMemberPath="count"
+                         [startAngle]="-90"
+                         [legend]="bloodTypesLegend">
+        </igx-ring-series>
+      </igx-doughnut-chart>
+      <igx-item-legend #bloodTypesLegend></igx-item-legend>
     </igx-card-content>
   </igx-card>
   <igx-card class="widget">
-    <igx-card-header>
-      <h3 igxCardHeaderTitle>Widget Title</h3>
-      <h5 igxCardHeaderSubtitle>Widget Sub Title</h5>
+    <igx-card-header class="widget__header">
+      <h3 igxCardHeaderTitle>Gender Ratio</h3>
     </igx-card-header>
-    <igx-card-content>
-      Widget Content
-    </igx-card-content>
-  </igx-card>
-  <igx-card class="widget">
-    <igx-card-header>
-      <h3 igxCardHeaderTitle>Widget Title</h3>
-      <h5 igxCardHeaderSubtitle>Widget Sub Title</h5>
-    </igx-card-header>
-    <igx-card-content>
-      Widget Content
-    </igx-card-content>
-  </igx-card>
-  <igx-card class="widget">
-    <igx-card-header>
-      <h3 igxCardHeaderTitle>Widget Title</h3>
-      <h5 igxCardHeaderSubtitle>Widget Sub Title</h5>
-    </igx-card-header>
-    <igx-card-content>
-      Widget Content
-    </igx-card-content>
-  </igx-card>
-  <igx-card class="widget">
-    <igx-card-header>
-      <h3 igxCardHeaderTitle>Widget Title</h3>
-      <h5 igxCardHeaderSubtitle>Widget Sub Title</h5>
-    </igx-card-header>
-    <igx-card-content>
-      Widget Content
+    <igx-card-content class="widget__content">
+      <igx-pie-chart [dataSource]="genders"
+                     width="100%"
+                     height="100%"
+                     labelMemberPath="gender"
+                     valueMemberPath="count"
+                     [startAngle]="-90"
+                     [legend]="gendersLegend">
+      </igx-pie-chart>
+      <igx-item-legend #gendersLegend></igx-item-legend>
     </igx-card-content>
   </igx-card>
 </div>

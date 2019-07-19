@@ -3,7 +3,7 @@
     <igx-icon>search</igx-icon>
   </igx-prefix>
 
-  <input type="text" placeholder="検索" [value]="condition.searchText" igxInput #searchBox
+  <input type="text" placeholder="Search..." [value]="condition.searchText" igxInput #searchBox
         (keydown.shift.f3)="searchPrev($event)"
         (keydown.f3)="searchNext($event)"
         (keydown.shift.enter)="searchPrev($event)"
@@ -16,10 +16,10 @@
     <div>
       <igx-chips-area>
         <igx-chip (click)="toggleCaseSensitive()" [color]="condition.caseSensitive ? 'lightgrey' : 'rgba(0, 0, 0, .04)'">
-          <span>大小区別</span>
+          <span>Case Sensitive</span>
         </igx-chip>
         <igx-chip (click)="toggleExactMatch()" [color]="condition.exactMatch ? 'lightgrey' : 'rgba(0, 0, 0, .04)'">
-          <span>完全一致</span>
+          <span>Exact Match</span>
         </igx-chip>
       </igx-chips-area>
     </div>

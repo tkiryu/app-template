@@ -23,7 +23,7 @@ export function createInitialState(): SearchState {
 }
 
 @Injectable({ providedIn: 'root' })
-@StoreConfig({ name: 'search' })
+@StoreConfig({ name: 'search', resettable: true })
 export class SearchStore extends Store<SearchState> {
 
   constructor() {

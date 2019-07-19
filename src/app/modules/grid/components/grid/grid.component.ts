@@ -8,8 +8,9 @@ import {
   TransactionType
 } from 'igniteui-angular';
 
-import { SearchCondition, SearchResult, ItemToChange, ChangeType } from '../../models';
-import { ID_KEY } from '../../constant';
+import { SearchCondition, SearchResult } from '../../models';
+import { ItemToChange, ChangeType } from '../../../../models';
+import { ID_KEY } from '../../../../constant';
 
 @Component({
   selector: 'app-grid',
@@ -43,13 +44,13 @@ export class GridComponent {
 
   get toolbarTitle(): string {
     if (this.isLoading) {
-      return '読み込み中';
+      return 'Loading...';
     }
     let count = 0;
     if (this.grid.data && this.grid.data.length) {
       count = this.grid.data.length;
     }
-    return `${count}件`;
+    return `${count} items`;
   }
 
   get canDelete(): boolean {

@@ -8,7 +8,7 @@
           [igxToggleAction]="importDropdown"
           [igxDropDownItemNavigation]="importDropdown">
     <igx-icon>arrow_drop_down</igx-icon>
-    インポート
+    Import
   </button>
   <igx-drop-down #importDropdown (onSelection)="onSelectImportType($event, inputFile)">
     <igx-drop-down-item [value]="'.xlsx'">Excel</igx-drop-down-item>
@@ -36,7 +36,7 @@
         <igx-circular-bar [indeterminate]="true"></igx-circular-bar>
       </div>
       <div>
-        読み込み中
+        Loading
         <svg id="dots" width="30px" height="20px">
           <g fill="#000">
             <circle id="dot1" cx="5" cy="18" r="2"></circle>
