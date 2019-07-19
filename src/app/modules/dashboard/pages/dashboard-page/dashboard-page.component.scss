@@ -40,5 +40,6 @@
 }
 
 .widget__content {
+  flex: 1 0; /* fix for Safari */
   display: flex;
 }
