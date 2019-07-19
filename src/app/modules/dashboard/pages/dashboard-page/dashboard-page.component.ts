@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
-import { IgxBannerComponent } from 'igniteui-angular';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+
 import { GridQuery } from 'src/app/states/grid';
 
 @Component({
@@ -12,8 +12,6 @@ export class DashboardPageComponent implements OnInit {
   ageGroups: any[];
   genders: any[];
   bloodTypes: any[];
-
-  @ViewChild('banner', { static: false }) banner: IgxBannerComponent;
 
   constructor(private gridQuery: GridQuery) { }
 
