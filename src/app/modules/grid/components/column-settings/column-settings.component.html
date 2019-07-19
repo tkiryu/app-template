@@ -1,10 +1,7 @@
 <div class="grid-area">
   <igx-grid #grid
-            [locale]="'ja-JP'"
             [data]="columnSettings"
-            [primaryKey]="'field'"
-            [showToolbar]="true"
-            [toolbarTitle]="'Column Settings'">
+            [primaryKey]="'field'">
     <igx-column [field]="'field'" [header]="'Property Name'" [dataType]="'string'" [pinned]="true" [resizable]="true">
     </igx-column>
     <igx-column [field]="'sampleValue'" [header]="'Data'" [pinned]="true" [resizable]="true">
