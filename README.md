@@ -42,13 +42,14 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     - 行選択
     - グローバル検索
     - データエクスポート(Excel, CSV)
+    - コピー
+      - ctrl+cでグリッドデータコピー -> ctrl+vでExcel貼り付け
 
   - カスタム実装している部分
     - データエクスポート(Excel, CSV)
-      - 選択行のみのエクスポートも可能
+      - 選択行のみのエクスポートが可能
     - データインポート(Excel, CSV)
-    - コピー＆ペースト
-      - ctrl+cでグリッドデータコピー -> ctrl+vでExcel貼り付け
+    - ペースト
       - ctrl+cでExcelデータコピー -> ctrl+vでグリッド貼り付け
     -	一括編集
       - ctrl+zでUndo
