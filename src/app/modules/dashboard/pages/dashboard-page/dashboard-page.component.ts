@@ -45,25 +45,25 @@ export class DashboardPageComponent implements OnInit {
       let woman = 0;
       for (const item of data) {
 
-        const age = item['Age']
+        const age = item['年齢']
         if (20 <= age && age < 30) twenties++;
         if (30 <= age && age < 40) thirties++;
         if (40 <= age && age < 50) fourties++;
         if (50 <= age && age < 60) fifties++;
 
-        const bloodType = item['BloodType'];
+        const bloodType = item['血液型'];
         if (bloodType === 'A') A++;
         if (bloodType === 'B') B++;
         if (bloodType === 'AB') AB++;
         if (bloodType === 'O') O++;
 
-        item['Gender'] === '男' ? man++ : woman++;
+        item['性別'] === '男' ? man++ : woman++;
 
         this._ageGroups$.next([
-          { ageGroup: 'Twenties', count: twenties },
-          { ageGroup: 'Thirties', count: thirties },
-          { ageGroup: 'Fourties', count: fourties },
-          { ageGroup: 'Fifties', count: fifties }
+          { ageGroup: '20代', count: twenties },
+          { ageGroup: '30代', count: thirties },
+          { ageGroup: '40代', count: fourties },
+          { ageGroup: '50代', count: fifties }
         ]);
 
         this._bloodTypes$.next([
@@ -74,8 +74,8 @@ export class DashboardPageComponent implements OnInit {
         ]);
 
         this._genders$.next([
-          { gender: 'Man', count: man },
-          { gender: 'Woman', count: woman }
+          { gender: '男', count: man },
+          { gender: '女', count: woman }
         ]);
       }
     });

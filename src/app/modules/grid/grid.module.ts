@@ -11,8 +11,8 @@ import {
   IgxProgressBarModule,
   IgxSelectModule
 } from 'igniteui-angular';
-// import { IgxResourceStringsJA } from 'igniteui-angular-i18n';
-// changei18n(IgxResourceStringsJA);
+import { IgxResourceStringsJA } from 'igniteui-angular-i18n';
+changei18n(IgxResourceStringsJA);
 
 import { GridRoutingModule } from './grid-routing.module';
 import { GridPageComponent } from './pages/grid-page/grid-page.component';

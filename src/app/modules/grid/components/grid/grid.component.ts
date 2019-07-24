@@ -50,7 +50,7 @@ export class GridComponent {
     if (this.grid.data && this.grid.data.length) {
       count = this.grid.data.length;
     }
-    return `${count} items`;
+    return `${count} 件`;
   }
 
   get canDelete(): boolean {
