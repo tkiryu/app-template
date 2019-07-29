@@ -14,7 +14,7 @@ export class NavComponent {
   pages = [
     { url: '/dashboard', icon: 'dashboard', name: 'Dashboard'},
     { url: '/grid', icon: 'grid_on', name: 'Grid'},
-    // { url: '/form', icon: 'input', name: 'Form'}
+    { url: '/form', icon: 'input', name: 'Form'}
   ];
 
   @ViewChild('nav', { static: true }) nav: IgxNavigationDrawerComponent;
