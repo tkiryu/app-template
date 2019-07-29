@@ -8,7 +8,7 @@
           [igxToggleAction]="importDropdown"
           [igxDropDownItemNavigation]="importDropdown">
     <igx-icon>arrow_drop_down</igx-icon>
-    Import
+    インポート
   </button>
   <igx-drop-down #importDropdown (onSelection)="onSelectImportType($event, inputFile)">
     <igx-drop-down-item [value]="'.xlsx'">Excel</igx-drop-down-item>
@@ -26,7 +26,6 @@
   <app-grid #grid
             [isLoading]="isLoading$ | async"
             [data]="data$ | async"
-            [columns]="columns$ | async"
             [searchCondition]="searchCondition$ | async"
             (searchResult)="onSearchResult($event)"
             (changeData)="onChangeData($event)"

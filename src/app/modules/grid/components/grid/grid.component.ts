@@ -1,16 +1,19 @@
-import { Component, ViewChild, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ViewChild, Input, Output, EventEmitter, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 import {
   IgxGridComponent,
   IGridToolbarExportEventArgs,
   IgxGridTransaction,
   IgxTransactionService,
-  TransactionType
+  TransactionType,
+  IGridEditEventArgs
 } from 'igniteui-angular';
 
 import { SearchCondition, SearchResult } from '../../models';
 import { ItemToChange, ChangeType } from '../../../../models';
 import { ID_KEY } from '../../../../constant';
+import { calculateAge } from '../../../../shared/utils';
 
 @Component({
   selector: 'app-grid',
@@ -19,12 +22,21 @@ import { ID_KEY } from '../../../../constant';
   providers: [{ provide: IgxGridTransaction, useClass: IgxTransactionService }],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GridComponent {
+export class GridComponent implements OnInit {
   @Input() isLoading: boolean;
 
-  @Input() data: any[];
-
-  @Input() columns: any[];
+  private _data: any[];
+  @Input() set data(data: any[]) {
+    this._data = data.map(rowData => {
+      return {
+        ...rowData,
+        '生年月日': new Date(rowData['生年月日'])
+      };
+    });
+  }
+  get data(): any[] {
+    return this._data;
+  }
 
   @Input() set searchCondition(value: SearchCondition) {
     this.search(value);
@@ -41,6 +53,8 @@ export class GridComponent {
   @ViewChild('grid', { static: true }) grid: IgxGridComponent;
 
   primaryKey = ID_KEY;
+
+  columns: { field: string; dataType: string; editable?: boolean }[];
 
   get toolbarTitle(): string {
     if (this.isLoading) {
@@ -73,7 +87,22 @@ export class GridComponent {
     return this.grid.transactions.canUndo || this.grid.transactions.canRedo;
   }
 
-  constructor() { }
+  constructor(private datePipe: DatePipe) { }
+
+  ngOnInit() {
+    this.columns = [
+      { field: '連番', dataType: 'number' },
+      { field: '姓', dataType: 'string', editable: true },
+      { field: '名', dataType: 'string', editable: true },
+      { field: '性別', dataType: 'string', editable: true },
+      { field: '生年月日', dataType: 'date', editable: true },
+      { field: '年齢', dataType: 'number' },
+      { field: '血液型', dataType: 'number', editable: true },
+      { field: '出身地', dataType: 'string', editable: true },
+      { field: '電話番号', dataType: 'string', editable: true },
+      { field: 'メールアドレス', dataType: 'string', editable: true }
+    ];
+  }
 
   calculateGridSizes(): void {
     // TODO: this is a workaround. remove when calculation will be OK.
@@ -131,6 +160,15 @@ export class GridComponent {
     event.exporter.exportData(dataToExport, event.options);
   }
 
+  onCellEdit(event: IGridEditEventArgs): void {
+    const field = this.grid.columns[event.cellID.columnID].field;
+    if (field !== '生年月日') {
+      return;
+    }
+    const age = calculateAge(event.newValue);
+    this.grid.updateCell(age, event.rowID, '年齢');
+  }
+
   onPasteData(pasteData: ItemToChange[]): void {
     pasteData.forEach(pasteItem => {
       this.grid.updateRow(pasteItem.value, pasteItem.id);
@@ -168,6 +206,8 @@ export class GridComponent {
           break;
         }
       }
+      const date = change.newValue['生年月日'];
+      change.newValue['生年月日'] = this.datePipe.transform(date, 'yyyy/MM/dd');
       return {
         id: change.id,
         value: change.newValue,

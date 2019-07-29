@@ -20,6 +20,7 @@
           [exportCsv]="true"
           [exportCsvText]="'CSV'"
           (onToolbarExporting)="onToolbarExporting($event)"
+          (onCellEdit)="onCellEdit($event)"
 
           [clipboardOptions]="{ enabled: true, separator: '\t' }"
 
@@ -47,29 +48,104 @@
     <button igxButton="icon" [disabled]="!canClear" (click)="onClear()">
       <igx-icon>clear</igx-icon>
     </button>
-    <button igxButton="flat" (click)="onColumnSettings()">
-      <igx-icon>settings</igx-icon>
-      列の設定
-    </button>
   </ng-template>
 
-  <igx-column *ngFor="let column of columns"
-              [field]="column.field"
-              [header]="column.header"
-              [dataType]="column.dataType"
-              [editable]="true"
-              [filterable]="true"
-              [groupable]="true"
-              [movable]="true"
-              [pinned]="false"
-              [resizable]="true"
-              [sortable]="true"
-              [disableHiding]="true">
-    <!-- TODO: When we can do in another way, remove these templates.
-      https://github.com/IgniteUI/igniteui-angular/issues/4246#issuecomment-471460353
-    -->
-    <ng-template igxExcelStyleMovingTemplate></ng-template>
-    <ng-template igxExcelStyleSortingTemplate></ng-template>
-  </igx-column>
+  <ng-container *ngFor="let column of columns">
+    <ng-container [ngSwitch]="column.field">
+      <igx-column *ngSwitchCase="'性別'"
+                  [field]="column.field"
+                  [dataType]="column.dataType"
+                  [editable]="true"
+                  [filterable]="true"
+                  [groupable]="true"
+                  [movable]="true"
+                  [pinned]="false"
+                  [resizable]="true"
+                  [sortable]="true"
+                  [disableHiding]="true">
+        <ng-template igxCellEditor let-cell="cell" #genderEditor>
+          <igx-select [displayDensity]="grid.displayDensity"
+                      [(ngModel)]="cell.editValue"
+                      [igxFocus]="true">
+            <igx-select-item *ngFor="let gender of ['男', '女']"
+                             [value]="gender">
+              {{ gender }}
+            </igx-select-item>
+          </igx-select>
+        </ng-template>
+        <ng-template igxExcelStyleMovingTemplate></ng-template>
+        <ng-template igxExcelStyleSortingTemplate></ng-template>
+      </igx-column>
+
+      <igx-column *ngSwitchCase="'生年月日'"
+                  [field]="column.field"
+                  [dataType]="column.dataType"
+                  [editable]="true"
+                  [filterable]="true"
+                  [groupable]="true"
+                  [movable]="true"
+                  [pinned]="false"
+                  [resizable]="true"
+                  [sortable]="true"
+                  [disableHiding]="true">
+        <ng-template igxCellEditor let-cell="cell" #dateEditor>
+          <igx-date-picker [mode]="'dropdown'"
+                           [labelVisibility]="false"
+                           [locale]="grid.locale"
+                           [mask]="'yyyy/MM/dd'"
+                           [(ngModel)]="cell.editValue"
+                           [igxFocus]="true">
+            <!-- TODO: issue: template is not applied -->
+            <!-- <ng-template igxCalendarSubheader let-format>
+              <span class="date__el" (click)="format.yearView()">{{ format.year.combined }}</span>
+              <span class="date__el" (click)="format.monthView()">{{ format.month.combined | titlecase }}</span>
+            </ng-template> -->
+          </igx-date-picker>
+        </ng-template>
+        <ng-template igxExcelStyleMovingTemplate></ng-template>
+        <ng-template igxExcelStyleSortingTemplate></ng-template>
+      </igx-column>
+
+      <igx-column *ngSwitchCase="'血液型'"
+                  [field]="column.field"
+                  [dataType]="column.dataType"
+                  [editable]="true"
+                  [filterable]="true"
+                  [groupable]="true"
+                  [movable]="true"
+                  [pinned]="false"
+                  [resizable]="true"
+                  [sortable]="true"
+                  [disableHiding]="true">
+        <ng-template igxCellEditor let-cell="cell" #bloodTypeEditor>
+          <igx-select [displayDensity]="grid.displayDensity"
+                      [(ngModel)]="cell.editValue"
+                      [igxFocus]="true">
+            <igx-select-item *ngFor="let bloodType of ['A', 'B', 'AB', 'O']"
+                             [value]="bloodType">
+              {{ bloodType }}
+            </igx-select-item>
+          </igx-select>
+        </ng-template>
+        <ng-template igxExcelStyleMovingTemplate></ng-template>
+        <ng-template igxExcelStyleSortingTemplate></ng-template>
+      </igx-column>
+
+      <igx-column *ngSwitchDefault
+                  [field]="column.field"
+                  [dataType]="column.dataType"
+                  [editable]="column.editable"
+                  [filterable]="true"
+                  [groupable]="true"
+                  [movable]="true"
+                  [pinned]="false"
+                  [resizable]="true"
+                  [sortable]="true"
+                  [disableHiding]="true">
+        <ng-template igxExcelStyleMovingTemplate></ng-template>
+        <ng-template igxExcelStyleSortingTemplate></ng-template>
+      </igx-column>
+    </ng-container>
+  </ng-container>
 
 </igx-grid>

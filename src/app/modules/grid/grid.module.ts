@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import {
@@ -46,6 +46,7 @@ import { UrlInputComponent } from './components/url-input/url-input.component';
     IgxSelectModule
   ],
   providers: [
+    DatePipe,
     IgxExcelExporterService,
     IgxCsvExporterService,
     // https://stackoverflow.com/a/51831884https://stackoverflow.com/a/51831884
