@@ -28,6 +28,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 
 ## 
+- ダミーデータ
+  https://hogehoge.tk/personal/generator/
+  を使用させて頂いています。
+
 - ダッシュボード画面
   - 作業中
 - グリッド画面

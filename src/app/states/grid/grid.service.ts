@@ -83,6 +83,25 @@ export class GridService {
     });
   }
 
+  changeItem(item: ItemToChange): void {
+    switch (item.type) {
+      case ChangeType.Add: {
+        this.gridStore.add(item.value);
+        break;
+      }
+
+      case ChangeType.Update: {
+        this.gridStore.update(item.id, item.value);
+        break;
+      }
+
+      case ChangeType.Remove: {
+        this.gridStore.remove(item.id);
+        break;
+      }
+    }
+  }
+
   removeData(): void {
     this.gridStore.reset();
   }

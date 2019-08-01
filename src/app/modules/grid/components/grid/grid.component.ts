@@ -98,8 +98,9 @@ export class GridComponent implements OnInit {
       { field: '生年月日', dataType: 'date', editable: true },
       { field: '年齢', dataType: 'number' },
       { field: '血液型', dataType: 'number', editable: true },
-      { field: '出身地', dataType: 'string', editable: true },
-      { field: '電話番号', dataType: 'string', editable: true },
+      { field: '郵便番号', dataType: 'string', editable: true },
+      { field: '住所', dataType: 'string', editable: true },
+      { field: '携帯電話', dataType: 'string', editable: true },
       { field: 'メールアドレス', dataType: 'string', editable: true }
     ];
   }
